@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>6 Expressions</TITLE>
+<META NAME="description" CONTENT="6 Expressions">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html253"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html249"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html243"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html251"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html254"
+  HREF="node8.html">7 QScheme procedures</A>
+<B> Up:</B> <A NAME="tex2html250"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html244"
+  HREF="node6.html">5 QScheme extensions and</A>
+ &nbsp <B>  <A NAME="tex2html252"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html255"
+  HREF="node7.html#SECTION00071000000000000000">6.1 Primitive expressions types</A>
+<LI><A NAME="tex2html256"
+  HREF="node7.html#SECTION00072000000000000000">6.2 Derived expressions</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00070000000000000000">
+6 Expressions</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00071000000000000000">
+6.1 Primitive expressions types</A>
+</H2>
+
+<P>
+These comply- with the one exception noted below - with the R5RS specification.
+
+<P>
+<TT>(quote (</TT><I>datum</I><TT>))</TT> -&gt; <I>&lt;list&gt;</I>&nbsp;
+<BR><TT>'(</TT><I>datum</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+<TT>(</TT><I>operator operand1 ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> 
+
+<P>
+<TT>(lambda</TT> <I>formals body</I><TT>)</TT> -&gt; <I>&lt;procedure&gt;</I>
+<BR><TT>(define (</TT><I>name arg ...) body</I><TT>)</TT> -&gt; <TT>#undefined </TT>
+
+<P>
+<TT>(define</TT> <I>variable expr</I><TT>)</TT> -&gt; <TT>#undefined</TT>&nbsp;
+<BR><TT>(set!</TT> <I>variable expr</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Refer to the discussion at <A HREF="node6.html#Qscm_topl_setq">5.5</A>
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(if</TT> <I>test when-true when-false</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>&nbsp;
+<BR><TT>(if</TT> <I>test when-true</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+<TT>(while</TT> <I>test body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+<BR>
+Evaluate <I>body</I> while <I>test</I> returns <TT>#t</TT>.
+
+<P>
+<TT>(until</TT> <I>test body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+<BR>
+Evaluate <I>body</I> while <I>test</I> returns <TT>#f</TT>.
+
+<P>
+<TT>(begin</TT> <I>expr ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS.
+
+<P>
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION00072000000000000000">
+6.2 Derived expressions</A>
+</H2>
+
+<P>
+<TT>(cond</TT> <I>clause1 clause2 ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> &nbsp;
+<BR><TT>(case</TT> <I>key clause1 clause2 ...</I><TT>)</TT>&nbsp;
+<BR><TT>(and</TT> <I>test1 ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> &nbsp;
+<BR><TT>(or</TT> <I>test1 ...</I> <TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(case</TT> <I>key clause1 clause2 ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Not implemented yet .
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(let</TT> <I>binding body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> &nbsp;
+<BR><TT>(let*</TT> <I>binding body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> &nbsp;
+<BR><TT>(letrec</TT> <I>binding body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(begin</TT> <I>expr1 expr2 ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>&nbsp;
+<BR><TT>(do ((</TT><I>var1 init1 step1</I> <TT>)</TT> <I>...</I> <TT>)</TT> <TT>(</TT><I>test
+expr ...</I> <TT>)</TT> <I>command ...</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(let</TT> <I>var bindings body</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Not implemented yet
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(delay</TT> <I>expr</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Not implemented yet.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(quasiquote (</TT><I>template</I><TT>))</TT> -&gt; <I>&lt;object&gt;</I> &nbsp;
+<BR><TT>`(</TT><I>template</I><TT>))</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS
+
+<P>
+</DD>
+</DL>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html253"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html249"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html243"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html251"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html254"
+  HREF="node8.html">7 QScheme procedures</A>
+<B> Up:</B> <A NAME="tex2html250"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html244"
+  HREF="node6.html">5 QScheme extensions and</A>
+ &nbsp <B>  <A NAME="tex2html252"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>12 Virtual Machine</TITLE>
+<META NAME="description" CONTENT="12 Virtual Machine">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html362"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html358"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html352"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html360"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html363"
+  HREF="node14.html">13 QScheme libraries</A>
+<B> Up:</B> <A NAME="tex2html359"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html353"
+  HREF="node12.html">11 Internal representation of</A>
+ &nbsp <B>  <A NAME="tex2html361"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html364"
+  HREF="node13.html#SECTION000131000000000000000">12.1 Introduction</A>
+<LI><A NAME="tex2html365"
+  HREF="node13.html#SECTION000132000000000000000">12.2 Internal opcodes</A>
+<LI><A NAME="tex2html366"
+  HREF="node13.html#SECTION000133000000000000000">12.3 Various things to know</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000130000000000000000">
+12 Virtual Machine</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION000131000000000000000">
+12.1 Introduction</A>
+</H2>
+
+<P>
+The virtual machine consists of a set of registers and a stack. See table <A HREF="#vm_registers">7</A>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="2361"></A>
+<TABLE>
+<CAPTION><STRONG>Table 7:</STRONG>
+Virtual Machine registers</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Register</TD>
+<TD ALIGN="LEFT">Description</TD>
+</TR>
+<TR><TD ALIGN="LEFT">ip</TD>
+<TD ALIGN="LEFT">the instruction pointer</TD>
+</TR>
+<TR><TD ALIGN="LEFT">sp</TD>
+<TD ALIGN="LEFT">the stack pointer</TD>
+</TR>
+<TR><TD ALIGN="LEFT">TOS</TD>
+<TD ALIGN="LEFT">the top of stack register. You can consider TOS as a cache.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">cont</TD>
+<TD ALIGN="LEFT">the pointer to the current continuation frame.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">env</TD>
+<TD ALIGN="LEFT">the pointer to the current dynamic environment</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+
+<P>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+The stack is used both at compile-time and at run-time. 
+
+<P>
+At compilation time, QScheme uses the stack as temporary workspace to generate
+code. This is done to limit the number of cells created and as consequence the
+number of GCs (garbage collections).
+
+<P>
+At run time, QScheme uses the stack to store function arguments, runtime environment,
+catches and partial continuations.
+
+<P>
+The default stack size is 32000 pointers.. This default can be changed on the
+command line. 
+
+<P>
+Presently, stack overflow and underflow conditions are not caught during execution,
+to avoid the related execution overhead and raise the performance of the VM
+- speed matters.
+
+<P>
+The virtual machine is in the file <TT>vm2.c</TT> file.
+
+<P>
+
+<H2><A NAME="SECTION000132000000000000000">
+12.2 Internal opcodes</A>
+</H2>
+
+<P>
+The internal opcodes are stored in the table <TT>symbols</TT> local to the function
+<TT>scm_vm()</TT> in the file <TT>vm2.c</TT> .
+
+<P>
+A pointer to this table is provided during initialization of the virtual machine. 
+
+<P>
+
+<H2><A NAME="SECTION000133000000000000000">
+12.3 Various things to know</A>
+</H2>
+
+<P>
+Things to know
+
+<P>
+
+<UL>
+<LI>during the sweep phase, all accessible cells have the gc mark bit set. Because
+I don't want to mask to obtain the true type, you will have to cope with the
+fact that the primitive testing the type will be fooled. (the <TT>scm_display</TT>
+function is anyway GC-proof (for debugging))
+</LI>
+<LI>the nargs field in the code header is the number of arguments expected <I>including</I>
+the optional argument. This means that nargs is the number of argument slots
+a function will receive.
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html362"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html358"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html352"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html360"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html363"
+  HREF="node14.html">13 QScheme libraries</A>
+<B> Up:</B> <A NAME="tex2html359"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html353"
+  HREF="node12.html">11 Internal representation of</A>
+ &nbsp <B>  <A NAME="tex2html361"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

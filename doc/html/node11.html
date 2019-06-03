@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>10 Data types *REVIEW*</TITLE>
+<META NAME="description" CONTENT="10 Data types *REVIEW*">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html331"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html327"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html321"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html329"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html332"
+  HREF="node12.html">11 Internal representation of</A>
+<B> Up:</B> <A NAME="tex2html328"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html322"
+  HREF="node10.html">9 Running QScheme</A>
+ &nbsp <B>  <A NAME="tex2html330"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html333"
+  HREF="node11.html#SECTION000111000000000000000">10.1 Built-in data types</A>
+<LI><A NAME="tex2html334"
+  HREF="node11.html#SECTION000112000000000000000">10.2 Adding new Scheme object types from C</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000110000000000000000">
+10 Data types *REVIEW*</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION000111000000000000000">
+10.1 Built-in data types</A>
+</H2>
+
+<P>
+The table <A HREF="#type_table">6</A>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="2356"></A>
+<TABLE>
+<CAPTION><STRONG>Table 6:</STRONG>
+Builtin Scheme object type</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Type</TD>
+<TD ALIGN="LEFT">Description</TD>
+<TD ALIGN="LEFT">Example</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_VOID</TD>
+<TD ALIGN="LEFT">when returned by eval no print occurs</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_PAIR</TD>
+<TD ALIGN="LEFT">result of a cons</TD>
+<TD ALIGN="LEFT">(cons 1 2) =&gt; (1 . 2)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_INUM</TD>
+<TD ALIGN="LEFT">small integer number. 31 bits</TD>
+<TD ALIGN="LEFT">123</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_FNUM</TD>
+<TD ALIGN="LEFT">double</TD>
+<TD ALIGN="LEFT">1.2</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_BNUM</TD>
+<TD ALIGN="LEFT">big integer number</TD>
+<TD ALIGN="LEFT">108230980172834891</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_ATOM</TD>
+<TD ALIGN="LEFT">an atom</TD>
+<TD ALIGN="LEFT">'a</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_KEYWORD</TD>
+<TD ALIGN="LEFT">starts with ':' and evaluates to itself</TD>
+<TD ALIGN="LEFT">:keyword</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_SYMBOL</TD>
+<TD ALIGN="LEFT">a symbol</TD>
+<TD ALIGN="LEFT">symbol</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_LSYMBOL</TD>
+<TD ALIGN="LEFT">local symbol</TD>
+<TD ALIGN="LEFT">x</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_LABEL</TD>
+<TD ALIGN="LEFT">label for named let</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_MODULE</TD>
+<TD ALIGN="LEFT">module description</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CHAR</TD>
+<TD ALIGN="LEFT">a character</TD>
+<TD ALIGN="LEFT">#&#92;space</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_STRING</TD>
+<TD ALIGN="LEFT">a string</TD>
+<TD ALIGN="LEFT">``Hello world''</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_PRIM</TD>
+<TD ALIGN="LEFT">internal VM primitive</TD>
+<TD ALIGN="LEFT">%push</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CPRIM</TD>
+<TD ALIGN="LEFT">primitive coded in C</TD>
+<TD ALIGN="LEFT">display</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_SYNTAX</TD>
+<TD ALIGN="LEFT">syntax object</TD>
+<TD ALIGN="LEFT">define</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CODE</TD>
+<TD ALIGN="LEFT">code without parameter</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_PROC</TD>
+<TD ALIGN="LEFT">procedure: has parameter(s)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_ENV</TD>
+<TD ALIGN="LEFT">environment</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CLOSURE</TD>
+<TD ALIGN="LEFT">closure</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_MACRO</TD>
+<TD ALIGN="LEFT">macro</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_PORT</TD>
+<TD ALIGN="LEFT">port</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_BOOLEAN</TD>
+<TD ALIGN="LEFT">#t or #f</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_UNBOUND</TD>
+<TD ALIGN="LEFT">value of an unbound symbol</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_UNDEFINED</TD>
+<TD ALIGN="LEFT">value of an undefined value</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_EOF</TD>
+<TD ALIGN="LEFT">the EOF value</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CONT</TD>
+<TD ALIGN="LEFT">continuation</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_ARRAY</TD>
+<TD ALIGN="LEFT">array</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_HASH</TD>
+<TD ALIGN="LEFT">hash</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_POINTER</TD>
+<TD ALIGN="LEFT">generic pointer</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_EXTFUNC</TD>
+<TD ALIGN="LEFT">external function, dynamically loaded</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_EXTVAR</TD>
+<TD ALIGN="LEFT">reference to an external variable</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_VAR</TD>
+<TD ALIGN="LEFT">reference to an external variable</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_VMFUNC</TD>
+<TD ALIGN="LEFT">VM extension functions</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_CCNTXT</TD>
+<TD ALIGN="LEFT">catch context</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">SOBJ_T_USER</TD>
+<TD ALIGN="LEFT">user-defined types</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+<BR>
+<BR>
+
+<P>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+describes the currently defined Scheme object types.
+
+<P>
+
+<H2><A NAME="SECTION000112000000000000000">
+10.2 Adding new Scheme object types from C</A>
+</H2>
+
+<P>
+The built-in data types can be extended by user defined data types. New user
+types can be registered using the following structures and API.
+
+<P>
+<TT>SOBJ_TYPE_DESCR</TT> 
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>This is the structure describing a type. See the definitions in file <TT>s.h</TT> 
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>SOBJ_TYPE_DESCR scm_type_hook[SOBJ_T_MAX]</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>This is the global type structure. You don't have to manipulate directly
+this table. 
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>int scm_add_type(SOBJ_TYPE_DESCR *type)</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>This function adds a new type to the <TT>scm_type_hook[]</TT> array. The
+integer returned is the type descriptor.
+
+<P>
+</DD>
+</DL>
+<P>
+To add a new Scheme object type, you have to go through the following steps:
+
+<P>
+
+<UL>
+<LI>Write code to mark and sweep this new type of object
+</LI>
+<LI>Write code to display this new type of object 
+</LI>
+<LI>Fill out a <TT>SOBJ_TYPE_DESCR</TT> structure with the functions you just
+wrote
+</LI>
+<LI>call <TT>scm_add_type</TT> and remember the value returned. This is your new
+type descriptor.
+</LI>
+<LI>That's all.
+</LI>
+</UL>
+A real and non-trivial working example of how to build a new Scheme object type
+can be found in the <TT>regex.c</TT> file. 
+
+<P>
+<DL>
+<DT><STRONG>Note:</STRONG></DT>
+<DD>The <TT>dyntype.c</TT> file can be use as prototype to build a new type
+from the C language. Just copy it and rename the ``xxx'' string with the name
+of your new type.
+</DD>
+</DL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html331"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html327"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html321"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html329"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html332"
+  HREF="node12.html">11 Internal representation of</A>
+<B> Up:</B> <A NAME="tex2html328"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html322"
+  HREF="node10.html">9 Running QScheme</A>
+ &nbsp <B>  <A NAME="tex2html330"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,523 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>8 Foreign function interface</TITLE>
+<META NAME="description" CONTENT="8 Foreign function interface">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html298"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html294"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html288"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html296"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html299"
+  HREF="node10.html">9 Running QScheme</A>
+<B> Up:</B> <A NAME="tex2html295"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html289"
+  HREF="node8.html">7 QScheme procedures</A>
+ &nbsp <B>  <A NAME="tex2html297"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html300"
+  HREF="node9.html#SECTION00091000000000000000">8.1 Loading a dynamic library </A>
+<LI><A NAME="tex2html301"
+  HREF="node9.html#SECTION00092000000000000000">8.2 Calling a foreign function</A>
+<LI><A NAME="tex2html302"
+  HREF="node9.html#SECTION00093000000000000000">8.3 Using a foreign variable</A>
+<LI><A NAME="tex2html303"
+  HREF="node9.html#SECTION00094000000000000000">8.4 A trivial example</A>
+<LI><A NAME="tex2html304"
+  HREF="node9.html#SECTION00095000000000000000">8.5 Declaring and using foreign types</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00090000000000000000">
+8 Foreign function interface</A>
+</H1>
+
+<P>
+QScheme provides a way to dynamically load dynamic libraries, to call functions
+of that library and to share variables with libraries.
+
+<P>
+
+<H2><A NAME="SECTION00091000000000000000"></A><A NAME="Qscm_loadlib"></A>
+<BR>
+8.1 Loading a dynamic library 
+</H2>
+
+<P>
+<TT>(load-library</TT> <I>name</I><TT>)</TT>-&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Attempts to load la dynamic library. If the dynamic linkage succeeds and the
+library contains a function named <TT>scm_init_</TT><I>name</I> QScheme will
+call this function to initialize the module. (See <TT>scm_init_regex</TT>
+in <TT>regex.c</TT> for an example.)
+
+<P>
+
+<H2><A NAME="SECTION00092000000000000000">
+8.2 Calling a foreign function</A>
+</H2>
+
+<P>
+To call a foreign function, you have to declare it first. As an example, here
+is the declaration of the <TT>system</TT> and <TT>printf</TT> functions from
+<TT>libc</TT>:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define&nbsp;system&nbsp;(make-extfunc&nbsp;*lib*&nbsp;:int&nbsp;&#34;system&#34;&nbsp;'(:string)))
+
+<P>
+(define&nbsp;printf&nbsp;(make-extfunc&nbsp;*lib*&nbsp;:void&nbsp;&#34;printf&#34;&nbsp;'(:string&nbsp;.&nbsp;:any)))
+</DD>
+</DL>After that, you can use <TT>system</TT> and <TT>printf</TT> just as is they
+were part of QScheme:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(printf&nbsp;&#34;May&nbsp;I&nbsp;?&nbsp;%d&nbsp;%s&#92;nIt&nbsp;works...&#92;n&#34;&nbsp;10&nbsp;&#34;hello&nbsp;world&#34;)&nbsp;
+
+<P>
+May&nbsp;I&nbsp;?&nbsp;10&nbsp;hello&nbsp;world&nbsp;It&nbsp;works...
+
+<P>
+&gt;
+</DD>
+</DL><TT>(make-extfunc</TT> <I>libname ret-type ext-name arglist</I><TT>)</TT>-&gt;
+<I>&lt;extfunc&gt;</I> 
+<BR>
+Creates a new Scheme object which can be used to call the foreign function <I>ext-name</I>
+
+<P>
+You can pass strings as arguments to a foreign function. The string is passed
+to the function as is. If the size of the string should be adjusted, this may
+be done with the <I>string-</I> functions. For instance, this QScheme function
+lists the contents of a file using the <I>stdio</I> functions:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define&nbsp;(type&nbsp;file)
+
+<P>
+&nbsp;&nbsp;(let&nbsp;((fd)&nbsp;(buf)&nbsp;(bufsize&nbsp;256))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;(set!&nbsp;fd&nbsp;(fopen&nbsp;file&nbsp;&#34;r&#34;))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(not&nbsp;(null-pointer?&nbsp;fd))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(begin
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(while&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(not&nbsp;(null?&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fgets
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(set!&nbsp;buf&nbsp;(make-string&nbsp;bufsize&nbsp;#&#92;space))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bufsize
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fd)))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(printf&nbsp;&#34;%s&#92;n&#34;&nbsp;(string-chop&nbsp;buf)))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fclose&nbsp;fd))
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(printf&nbsp;&#34;cannot&nbsp;open&nbsp;file&nbsp;%s&#34;&nbsp;file))))
+</DD>
+</DL>Note how we pass the <TT>buf</TT> to the <TT>fgets</TT> function and how we
+use it afterwards. 
+
+<P>
+
+<H2><A NAME="SECTION00093000000000000000">
+8.3 Using a foreign variable</A>
+</H2>
+
+<P>
+QScheme can also access variables defined in dynamic libraries. (see <TT>load-library</TT>:
+<A HREF="node9.html#Qscm_loadlib">8.1</A>). 
+
+<P>
+<TT>(make-extern-variable</TT> <I>libname type name</I><TT>)</TT>-&gt; <I>&lt;external-variable&gt;</I>
+
+<BR>
+Creates an external variable. <I>libname</I> is a string containing the path
+to the dynamically loaded library. The library will be loaded on demand. The
+<I>type</I> is a keyword as described in the table 
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="2349"></A>
+<TABLE>
+<CAPTION><STRONG>Table 5:</STRONG>
+Type of external variables</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Type</TD>
+<TD ALIGN="LEFT">C type</TD>
+<TD ALIGN="LEFT">Description</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:char</TT></TD>
+<TD ALIGN="LEFT"><TT>char</TT></TD>
+<TD ALIGN="LEFT">a character</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:short</TT></TD>
+<TD ALIGN="LEFT"><TT>short</TT></TD>
+<TD ALIGN="LEFT">a short integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:long</TT></TD>
+<TD ALIGN="LEFT"><TT>long</TT></TD>
+<TD ALIGN="LEFT">a long integer</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:float</TT></TD>
+<TD ALIGN="LEFT"><TT>float</TT></TD>
+<TD ALIGN="LEFT">a float number</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:double</TT></TD>
+<TD ALIGN="LEFT"><TT>double</TT></TD>
+<TD ALIGN="LEFT">a double float number</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:string</TT></TD>
+<TD ALIGN="LEFT"><TT>char *</TT></TD>
+<TD ALIGN="LEFT">a <TT>malloc</TT>-ed string.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:string-buffer</TT></TD>
+<TD ALIGN="LEFT"><TT>char *</TT></TD>
+<TD ALIGN="LEFT">a pointer to a char buffer</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:scheme</TT></TD>
+<TD ALIGN="LEFT"><TT>SOBJ</TT></TD>
+<TD ALIGN="LEFT">a pointer to a Scheme object</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+<BR>
+<BR>
+
+<P>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+<A HREF="#extvar_type">5</A>. The <I>name</I> is a string containing the name of the variable
+as defined in the module. 
+
+<P>
+The type of external strings is specified according to the string allocation
+scheme. We have to deal with the following cases: 
+
+<P>
+
+<UL>
+<LI>the string is stored in a static array of characters.
+</LI>
+<LI>the string is dynamically allocated with <TT>malloc</TT>. 
+</LI>
+</UL>
+When referring to a dynamically allocated string, you have to use the <TT>:string</TT>
+type. Changing such a string from QScheme will first free the memory then <I>malloc</I>
+a fresh copy of the string.
+
+<P>
+When referring to a string stored in a static character buffer, you must use
+the <TT>:string-buffer</TT> type. In this case the value is just copied in the
+buffer. Beware that no range check occurs. From QScheme, don't try to assign
+a string bigger than the static buffer size. 
+
+<P>
+Look at <TT>tstlib.c</TT> and <TT>tstlib.defs</TT> for an example that uses
+static and dynamic strings in a dynamic library.
+
+<P>
+
+<H2><A NAME="SECTION00094000000000000000">
+8.4 A trivial example</A>
+</H2>
+
+<P>
+Here is an example of how to share variable values between C and QScheme. In
+your C code, you have the following:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>int&nbsp;shared_var;
+
+<P>
+&nbsp;
+
+<P>
+void&nbsp;test_func()&nbsp;{
+
+<P>
+&nbsp;&nbsp;printf(&#34;shared_var&nbsp;=&nbsp;%d&#92;n&#34;,&nbsp;testvar_w);
+
+<P>
+}
+</DD>
+</DL>To access the variable <TT>shared_var</TT> and the function <TT>test_func</TT>
+from Qscheme, you may use the following definitions:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define&nbsp;*lib*&nbsp;&#34;./tstlib.so&#34;)
+
+<P>
+(define&nbsp;shared-var&nbsp;(make-extern-variable&nbsp;*lib*&nbsp;:int&nbsp;&#34;shared_var&#34;)
+
+<P>
+(define&nbsp;test-func&nbsp;(make-extfunc&nbsp;*lib*&nbsp;:void&nbsp;&#34;test_func&#34;&nbsp;'())
+</DD>
+</DL>Then you can get and set values like this:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(set!&nbsp;shared-var&nbsp;100)
+
+<P>
+&gt;&nbsp;(test-func)
+
+<P>
+shared_var&nbsp;=&nbsp;100
+
+<P>
+&gt;&nbsp;(display&nbsp;shared-var)&nbsp;(newline)
+
+<P>
+100
+
+<P>
+&gt;
+</DD>
+
+<DT><STRONG>Warning:</STRONG></DT>
+<DD>You must use <TT>define</TT> to bind a symbol to an external variable
+and <TT>set!</TT> to modify directly the value of the variable.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00095000000000000000">
+8.5 Declaring and using foreign types</A>
+</H2>
+
+<P>
+QScheme can create new Scheme object types at run-time. 
+
+<P>
+<TT>(make-type</TT> <I>name</I><TT>)</TT>-&gt; <I>&lt;type-number&gt;</I> 
+<BR>
+Creates a new type of Scheme object. The number returned is the internal type
+number.
+
+<P>
+<TT>(define-type</TT> <I>&lt;keyword&gt; | &lt;string&gt; | &lt;symbol&gt;</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Creates a new type of Scheme object. This is just a wrapper around the <TT>make-type</TT>
+function.
+
+<P>
+<TT>(internal-type-list)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR>
+Returns a list of strings representing the know types.
+
+<P>
+<TT>(get-aux</TT> <I>obj</I><TT>)</TT>-&gt; <I>&lt;obj&gt;</I> &nbsp;
+<BR><TT>(set-aux!</TT> <I>obj value</I><TT>)</TT>-&gt; <TT>#undefined </TT>&nbsp;
+<BR><TT>(clear-aux!</TT> <I>obj</I><TT>)</TT>-&gt; <TT>#undefined</TT> 
+<BR><TT>(null-aux?</TT> <I>obj</I><TT>)</TT>-&gt; <I>&lt;boolean&gt;</I>
+<BR>
+These functions test and change the <I>aux</I> field of an object. The <I>aux</I>
+field is large enough to store a pointer.
+
+<P>
+<DL>
+<DT><STRONG>Warning:</STRONG></DT>
+<DD>the <TT>set-aux!</TT> and <TT>clear-aux!</TT> do <B>not</B> check
+the type of object. You may alter whatever Scheme object you want, and this
+may lead to regrettably unpredictable results. You should not modify the <I>aux</I>
+field of ordinary Scheme objects, because this field may be used for specific
+purpose. (for example, the <I>aux</I> field of a pair is the <I>car</I> field).
+</DD>
+</DL>
+<TT>(add-type-finalizer</TT> <I>type proc</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Defines a procedure to be executed when an object of this <I>type</I> is released
+by the garbage collector. When called the <I>proc</I> is a given the object
+to be destroyed as argument.
+
+<P>
+<DL>
+<DT><STRONG>Note:</STRONG></DT>
+<DD>the <I>proc</I> is a procedure which is executed in the top-level context,
+which means the procedure <I>should not use any local references!</I> 
+</DD>
+</DL>
+A new type maybe used in conjunction with the <TT>make-extfunc</TT> procedure.
+For example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define-type&nbsp;:file)
+
+<P>
+&nbsp;
+
+<P>
+(define&nbsp;fopen
+
+<P>
+&nbsp;&nbsp;(make-extfunc&nbsp;&#34;&#34;&nbsp;:file&nbsp;&#34;fopen&#34;&nbsp;'(:string&nbsp;:string)))
+
+<P>
+&nbsp;
+
+<P>
+(define&nbsp;fprintf
+
+<P>
+&nbsp;&nbsp;(make-extfunc&nbsp;&#34;&#34;&nbsp;:void&nbsp;&#34;fprintf&#34;&nbsp;'(:file&nbsp;:string&nbsp;.&nbsp;:any)))
+
+<P>
+&nbsp;
+
+<P>
+(define&nbsp;_fclose&nbsp;(make-extfunc&nbsp;&#34;&#34;&nbsp;:void&nbsp;&#34;fclose&#34;&nbsp;'(:file)))
+
+<P>
+&nbsp;
+
+<P>
+(define&nbsp;(fclose&nbsp;x)
+
+<P>
+&nbsp;&nbsp;(if&nbsp;(not&nbsp;(null-aux?&nbsp;x))&nbsp;(_fclose&nbsp;x))
+
+<P>
+&nbsp;&nbsp;(clear-aux!&nbsp;x))
+
+<P>
+&nbsp;
+
+<P>
+(add-type-finalizer&nbsp;
+
+<P>
+&nbsp;&#34;file&#34;
+
+<P>
+&nbsp;(lambda&nbsp;(x)&nbsp;(fclose&nbsp;x)))
+</DD>
+</DL>In this example, the <I>finalizer</I> procedure closes the file. This guarantees
+that the file will not stay open when the Scheme objects that were using it
+have all vanished.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html298"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html294"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html288"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html296"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html299"
+  HREF="node10.html">9 Running QScheme</A>
+<B> Up:</B> <A NAME="tex2html295"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html289"
+  HREF="node8.html">7 QScheme procedures</A>
+ &nbsp <B>  <A NAME="tex2html297"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

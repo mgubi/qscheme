@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>11 Internal representation of QScheme objects</TITLE>
+<META NAME="description" CONTENT="11 Internal representation of QScheme objects">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html345"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html341"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html335"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html343"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html346"
+  HREF="node13.html">12 Virtual Machine</A>
+<B> Up:</B> <A NAME="tex2html342"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html336"
+  HREF="node11.html">10 Data types *REVIEW*</A>
+ &nbsp <B>  <A NAME="tex2html344"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html347"
+  HREF="node12.html#SECTION000121000000000000000">11.1 QScheme cells</A>
+<LI><A NAME="tex2html348"
+  HREF="node12.html#SECTION000122000000000000000">11.2 Immediate small integers</A>
+<LI><A NAME="tex2html349"
+  HREF="node12.html#SECTION000123000000000000000">11.3 Other Objects</A>
+<UL>
+<LI><A NAME="tex2html350"
+  HREF="node12.html#SECTION000123100000000000000">11.3.1 Procedures</A>
+<LI><A NAME="tex2html351"
+  HREF="node12.html#SECTION000123200000000000000">11.3.2 Numbers</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000120000000000000000">
+11 Internal representation of QScheme objects</A>
+</H1>
+
+<P>
+Every QScheme object is either a pointer to a cell or an immediate small integer. 
+
+<P>
+
+<H2><A NAME="SECTION000121000000000000000">
+11.1 QScheme cells</A>
+</H2>
+
+<P>
+All non immediate QScheme objects are stored in a heap, which is simply an array
+of <TT>Sobject</TT>
+
+<P>
+structure. A <TT>Sobject</TT> structure contains the following fields:
+
+<P>
+
+<UL>
+<LI>a type field, describing the type of Scheme object.
+</LI>
+<LI>enough bytes to store 2 pointers.
+</LI>
+</UL>
+QScheme expects that following assumptions are strictly verified:
+
+<P>
+
+<OL>
+<LI>The size of the Sobject structure must be a multiple of 2. 
+</LI>
+<LI>The heap starts on an address which is a multiple of 2.
+</LI>
+</OL>
+Because of this, the pointers to Scheme object are always even, which means
+that bit 0 is always 0. 
+
+<P>
+If a type needs more data than the 2 pointers space provided by a cell, it has
+to allocate more space in the system heap by using the <TT>scm_must_alloc</TT>
+and <TT>scm_free</TT> functions.
+
+<P>
+
+<H2><A NAME="SECTION000122000000000000000">
+11.2 Immediate small integers</A>
+</H2>
+
+<P>
+Immediate small integers have bit 0 set to 1. The other bits of the word contain
+the true integer value. So on a machine where pointer are on 32 bits, the immediate
+number are coded on 31 bits.
+
+<P>
+
+<H2><A NAME="SECTION000123000000000000000">
+11.3 Other Objects</A>
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION000123100000000000000">
+11.3.1 Procedures</A>
+</H3>
+
+<P>
+A procedure is implemented as follow:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&lt;proc&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;[&nbsp;&lt;envFrame&gt;&nbsp;|&nbsp;&lt;code&gt;&nbsp;]
+
+<P>
+&lt;envFrame&gt;&nbsp;=&nbsp;&lt;next&gt;&nbsp;&lt;nslots&gt;&nbsp;&lt;bindings&gt;
+
+<P>
+&lt;code&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&lt;envList&gt;&nbsp;&lt;size&gt;&nbsp;&lt;nargs&gt;&nbsp;&lt;optargs&gt;&nbsp;&lt;code-slot&gt;&nbsp;...
+</DD>
+</DL>The <TT>envFrame</TT> pointer points to an Environment Frame which is cloned
+at runtime to contain the current bindings.
+
+<P>
+The <TT>envList</TT> is a pointer to the symbolic representation of the environment
+as built at compilation time. The compile-time environment is a list of <TT>localvar</TT>
+symbols. 
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&lt;localvar&gt;&nbsp;=&nbsp;[&nbsp;&lt;symbol&gt;&nbsp;|&nbsp;&lt;depth&gt;&nbsp;&lt;ofs&gt;&nbsp;]
+</DD>
+</DL>
+<P>
+
+<H3><A NAME="SECTION000123200000000000000">
+11.3.2 Numbers</A>
+</H3>
+
+<P>
+*REVIEW* 
+
+<P>
+*** Yes, numbers ... ***
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html345"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html341"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html335"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html343"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html346"
+  HREF="node13.html">12 Virtual Machine</A>
+<B> Up:</B> <A NAME="tex2html342"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html336"
+  HREF="node11.html">10 Data types *REVIEW*</A>
+ &nbsp <B>  <A NAME="tex2html344"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

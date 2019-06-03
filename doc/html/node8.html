@@ -1,0 +1,1932 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7 QScheme procedures</TITLE>
+<META NAME="description" CONTENT="7 QScheme procedures">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html267"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html263"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html257"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html265"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html268"
+  HREF="node9.html">8 Foreign function interface</A>
+<B> Up:</B> <A NAME="tex2html264"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html258"
+  HREF="node7.html">6 Expressions</A>
+ &nbsp <B>  <A NAME="tex2html266"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html269"
+  HREF="node8.html#SECTION00081000000000000000">7.1 Atom</A>
+<LI><A NAME="tex2html270"
+  HREF="node8.html#SECTION00082000000000000000">7.2 Symbol</A>
+<LI><A NAME="tex2html271"
+  HREF="node8.html#SECTION00083000000000000000">7.3 Keyword</A>
+<LI><A NAME="tex2html272"
+  HREF="node8.html#SECTION00084000000000000000">7.4 Pair</A>
+<LI><A NAME="tex2html273"
+  HREF="node8.html#SECTION00085000000000000000">7.5 List</A>
+<LI><A NAME="tex2html274"
+  HREF="node8.html#SECTION00086000000000000000">7.6 Character</A>
+<LI><A NAME="tex2html275"
+  HREF="node8.html#SECTION00087000000000000000">7.7 String</A>
+<LI><A NAME="tex2html276"
+  HREF="node8.html#SECTION00088000000000000000">7.8 Vector</A>
+<LI><A NAME="tex2html277"
+  HREF="node8.html#SECTION00089000000000000000">7.9 Hash</A>
+<LI><A NAME="tex2html278"
+  HREF="node8.html#SECTION000810000000000000000">7.10 Number</A>
+<LI><A NAME="tex2html279"
+  HREF="node8.html#SECTION000811000000000000000">7.11 Input / output</A>
+<LI><A NAME="tex2html280"
+  HREF="node8.html#SECTION000812000000000000000">7.12 Error handling</A>
+<LI><A NAME="tex2html281"
+  HREF="node8.html#SECTION000813000000000000000">7.13 Module</A>
+<LI><A NAME="tex2html282"
+  HREF="node8.html#SECTION000814000000000000000">7.14 Pointer</A>
+<LI><A NAME="tex2html283"
+  HREF="node8.html#SECTION000815000000000000000">7.15 Process</A>
+<LI><A NAME="tex2html284"
+  HREF="node8.html#SECTION000816000000000000000">7.16 Threads</A>
+<LI><A NAME="tex2html285"
+  HREF="node8.html#SECTION000817000000000000000">7.17 Mutexes</A>
+<LI><A NAME="tex2html286"
+  HREF="node8.html#SECTION000818000000000000000">7.18 Semaphores</A>
+<LI><A NAME="tex2html287"
+  HREF="node8.html#SECTION000819000000000000000">7.19 Miscellaneous</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00080000000000000000">
+7 QScheme procedures</A>
+</H1>
+
+<P>
+In this section I give a list of native QScheme types and of procedures operating
+on this types. Most of the types are described in the R5RS document and hence
+documented very briefly here. New types are described in greater detail. 
+
+<P>
+
+<H2><A NAME="SECTION00081000000000000000">
+7.1 Atom</A>
+</H2>
+
+<P>
+Atoms are unique strings collected in a hash, the atom hash. They are used anywhere
+we need unique strings. Symbol names and keywords are examples of atoms
+<BR>
+<P>
+<TT>(atom-hash)</TT> -&gt; <I>hash</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns a pointer to the hash table containing all atoms.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(string-&gt;atom</TT> <I>str</I><TT>)</TT> -&gt; <I>atom</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Creates an atom from the string given as argument.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(atom-&gt;string</TT> <I>atom</I><TT>)</TT> -&gt; <I>str</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Creates a new string from the atom.
+
+<P>
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION00082000000000000000">
+7.2 Symbol</A>
+</H2>
+
+<P>
+A symbol has a name and a value. The name of a symbol is an <I>atom</I>, it's
+value may be any valid Scheme object. New symbols are created by the <TT>(define</TT>
+<I>sym value</I><TT>)</TT> special form.
+
+<P>
+<TT>(symbol?</TT> <I>obj</I> <TT>)</TT> -&gt; &lt;boolean&gt;
+
+<P>
+<TT>(symbol-&gt;string</TT> <I>symbol</I> <TT>)</TT> -&gt; &lt;string&gt;
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>See R5RS.
+
+<P>
+</DD>
+</DL>
+<P>
+*THINK*: should we provide a way to undefine a symbol ?
+
+<P>
+
+<H2><A NAME="SECTION00083000000000000000">
+7.3 Keyword</A>
+</H2>
+
+<P>
+Keywords are special symbols that evaluate to themselves. The keywords are recognized
+by the <TT>read</TT> procedure. A keyword usually starts with a ':' - refer
+to <A HREF="node6.html#Qscm_keywords">5.3</A>. Example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>:test&nbsp;-&gt;&nbsp;:test
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION00084000000000000000">
+7.4 Pair</A>
+</H2>
+
+<P>
+A pair consists of two pointers to other Scheme objects. The name of the pointers
+are <TT>CAR</TT> and <TT>CDR</TT> for historical reasons. Here I refer to them
+as the car and cdr field of the pair. The procedures dealing with pairs all
+comply with the R5RS specification. They are:
+
+<P>
+<TT>(pair?</TT> <I>object</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns #t if object is a pair.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(cons</TT> <I>arg1 arg2</I><TT>)</TT> -&gt; <I>&lt;pair&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Creates a new pair whose CAR is <I>arg1</I> and CDR is <I>arg2.</I>
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(car</TT> <I>pair</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns the content of the car field of the <I>pair.</I>
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(cdr</TT> <I>pair</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns the content of the cdr field.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(caar</TT> <I>pair</I><TT>) </TT>&nbsp;
+<BR><TT>(cadr</TT> <I>pair</I><TT>) </TT>&nbsp;
+<BR><TT>... </TT>&nbsp;
+<BR><TT>(cdddar</TT> <I>pair</I><TT>) </TT>&nbsp;
+<BR><TT>(cddddr</TT> <I>pair</I><TT>)</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Successive composition of <TT>car</TT> and <TT>cdr</TT> function, up to 4 level
+deep.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(cdr</TT> <I>pair</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns the content of the cdr field.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(set-car!</TT> <I>pair object</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Sets the content of the car field of the pair to object.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(set-cdr!</TT> <I>pair object</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Sets the content of the cdr field of the pair to object.
+
+<P>
+</DD>
+</DL>
+<P>
+<TT>(null?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Returns #t if obj is the empty list, #f otherwise.
+
+<P>
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION00085000000000000000">
+7.5 List</A>
+</H2>
+
+<P>
+All procedures of R5RS are implemented.
+
+<P>
+<TT>(list?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+
+<P>
+Function description.
+
+<P>
+<TT>(length</TT> <I>list</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+
+<P>
+Function description.
+
+<P>
+<TT>(append</TT> <I>list ...</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+Function description.
+
+<P>
+<TT>(reverse</TT> <I>list</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+Function description.
+
+<P>
+<TT>(list-tail</TT> <I>list n</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> 
+
+<P>
+Returns a sublist of <I>list</I> omitting the first <I>n</I> elements.
+
+<P>
+<TT>(list-ref</TT> <I>list n</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> 
+
+<P>
+Returns the nth element of list
+<BR>
+<P>
+<TT>(memq</TT> <I>obj list</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR><TT>(memv</TT> <I>obj list</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR><TT>(member</TT> <I>obj list</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+Returns the first sublist where car is <I>obj</I> . <TT>memq</TT> uses <TT>eq?</TT>
+to compare elements, <TT>memv</TT> uses <TT>eqv?</TT> and <TT>member</TT> uses
+<TT>equal?</TT>.
+<BR>
+<P>
+<TT>(assq</TT> <I>obj alist</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR><TT>(assv</TT> <I>obj alist</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR><TT>(assoc</TT> <I>obj alist</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+See R5RS 
+
+<P>
+<TT>(for-each</TT> <I>func list</I><TT>)</TT> -&gt; #undefined &nbsp;
+<BR><TT>(map</TT> <I>func list</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+
+<P>
+See R5RS
+
+<P>
+
+<H2><A NAME="SECTION00086000000000000000">
+7.6 Character</A>
+</H2>
+
+<P>
+Characters are used - as the name tells - to represent printed characters. Character
+uses the notation <TT>#&#92;&lt;character&gt;</TT> or <TT>#&#92;&lt;character
+name&gt;</TT>, see R5RS and table <A HREF="#char_name">3</A> for more details.
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="2322"></A>
+<TABLE>
+<CAPTION><STRONG>Table 3:</STRONG>
+Character name</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Character name</TD>
+<TD ALIGN="LEFT">Character</TD>
+<TD ALIGN="CENTER">ASCII (decimal)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;null</TT></TD>
+<TD ALIGN="LEFT">'&#92;0', the NUL character</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;bell</TT></TD>
+<TD ALIGN="LEFT">'&#92;t' , the character ringing the bell</TD>
+<TD ALIGN="CENTER">7</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;backspace</TT></TD>
+<TD ALIGN="LEFT">the backspace</TD>
+<TD ALIGN="CENTER">8</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;tab</TT></TD>
+<TD ALIGN="LEFT">horizontal tab</TD>
+<TD ALIGN="CENTER">9</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;newline</TT></TD>
+<TD ALIGN="LEFT">newline</TD>
+<TD ALIGN="CENTER">10</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;vtab</TT></TD>
+<TD ALIGN="LEFT">vertical tab</TD>
+<TD ALIGN="CENTER">11</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;formfeed</TT></TD>
+<TD ALIGN="LEFT">formfeed</TD>
+<TD ALIGN="CENTER">12</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;return</TT></TD>
+<TD ALIGN="LEFT">return</TD>
+<TD ALIGN="CENTER">13</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>#&#92;space</TT></TD>
+<TD ALIGN="LEFT">space</TD>
+<TD ALIGN="CENTER">32</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+<BR>
+<BR>
+
+<P>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+.
+
+<P>
+The procedures handling characters are R5RS-compliant. They are: 
+
+<P>
+<TT>(char?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+
+<P>
+Return <TT>#t</TT> if object is a character
+
+<P>
+<TT>(char=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char&lt;?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char&gt;?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char&lt;=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char&gt;=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-ci=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-ci&lt;?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-ci&gt;?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-ci&lt;=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-ci&gt;=?</TT> <I>char1 char2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+
+<P>
+Character comparison, See R5RS
+
+<P>
+<TT>(char-alphabetic?</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> &nbsp;
+<BR><TT>(char-numeric?</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-whitespace?</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-upper-case?</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(char-lower-case?</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+
+<P>
+Character classification tests. See R5RS
+
+<P>
+<TT>(char-&gt;integer</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I>
+<BR><TT>(integer-&gt;char</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;char&gt;</I> 
+
+<P>
+Character conversion. See R5RS
+
+<P>
+<TT>(char-upcase</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;char&gt;</I>
+<BR><TT>(char-downcase</TT> <I>char</I><TT>)</TT> -&gt; <I>&lt;char&gt;</I> 
+
+<P>
+Character conversion. See R5RS 
+
+<P>
+
+<H2><A NAME="SECTION00087000000000000000">
+7.7 String</A>
+</H2>
+
+<P>
+The string procedures are mostly compatible with R5RS.
+
+<P>
+<TT>(string?</TT> <I>object</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if object is a string.
+
+<P>
+<TT>(make-string</TT> <I>size [char]</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Creates a new string from <I>size</I> chars, optionally filled with <I>char</I>.
+If <I>char</I> is not specified, the string is filled with the character <TT>#&#92;null</TT>.
+
+<P>
+<TT>(string</TT> <I>char ...</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Creates a new string from the characters given as argument.
+
+<P>
+<TT>(string-length</TT> <I>str</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Returns the current length of the string.
+
+<P>
+<TT>(string-ref</TT> <I>str k</I><TT>)</TT> -&gt; <I>&lt;char&gt;</I> 
+<BR>
+Returns the kth character of string. The indexing is 0-based.
+
+<P>
+<TT>(string-set!</TT> <I>str k char</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Changes the kth character of string. 
+
+<P>
+<TT>(string=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string&lt;?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string&gt;?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string&lt;=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string&gt;=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+String comparison.
+
+<P>
+<TT>(string-ci=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>&nbsp;
+<BR><TT>(string-ci&lt;?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string-ci&gt;?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string-ci&lt;=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR><TT>(string-ci&gt;=?</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Case insensitive string comparison
+
+<P>
+<TT>(substring</TT> <I>str start end</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Returns the substring of <I>str</I>, starting at position <I>start</I> and terminating
+at position <I>end</I>. See R5RS
+
+<P>
+<TT>(string-length</TT> <I>str</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Returns the length of the string <I>str</I>. 
+
+<P>
+<TT>(string-append</TT> <I>str ...</I><TT>)</TT> -&gt; <I>&lt;str&gt;</I> 
+<BR>
+Returns the length of the string <I>str</I>. 
+
+<P>
+<TT>(string-&gt;list</TT> <I>str</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+<BR>
+Returns a list consisting of the chars contained in string <I>str</I>. 
+
+<P>
+<TT>(list-&gt;string</TT> <I>list</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Builds a string from a list of chars. 
+
+<P>
+<TT>(string-copy</TT> <I>str</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Returns a fresh copy of a string. 
+
+<P>
+<TT>(-fill!</TT> <I>str char</I><TT>)</TT> -&gt; <TT>#undefined</TT> 
+<BR>
+Replaces all character of str by <I>char.</I> 
+
+<P>
+<TT>(string-append2</TT> <I>str1 str2</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Returns the concatenation of <I>str1</I> and <I>str2</I>.
+
+<P>
+<TT>(string-index</TT> <I>string search</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> |
+<TT>#f</TT> 
+<BR>
+Returns the index in <I>string</I> where <I>search</I> appears first. The <I>search</I>
+argument can be either a <I>&lt;character&gt;</I> or a <I>&lt;string&gt;</I>. Returns <TT>#f</TT>
+if the string <I>search</I> cannot be found. This is an extension to R5RS.
+
+<P>
+<TT>(string-chop</TT> <I>obj</I><TT>)</TT> -&gt; <I>obj</I> 
+<BR>
+If <I>obj</I> is a string, the size of the string is shortened to exclude the
+first newline if any. If <I>obj</I> is not a string, <I>obj</I> is left unchanged.
+Note that the allocated size<A NAME="tex2html5"
+  HREF="footnode.html#foot2325"><SUP>2</SUP></A> of the string is not changed. Only the apparent length of the string is changed.
+This is an extension to R5RS.
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(string-chop&nbsp;&#34;Hello&nbsp;world&#92;n&#92;nI&nbsp;said...&#92;n&#34;)
+
+<P>
+&#34;Hello&nbsp;world&#34;
+</DD>
+</DL><TT>(string-split</TT> <I>delim str</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+<BR>
+Returns a list of the substrings of <I>str</I> that are delimited by one of
+the characters in the <I>delim</I> string. Example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(string-split&nbsp;&#34;&#92;t&nbsp;&#34;&nbsp;&#34;Hello&nbsp;world&#34;)
+
+<P>
+(&#34;Hello&#34;&nbsp;&#34;world&#34;)
+
+<P>
+&gt;&nbsp;(string-split&nbsp;&#34;:&#34;&nbsp;(hash-ref&nbsp;environ&nbsp;&#34;PATH&#34;)&nbsp;)
+
+<P>
+(&#34;/usr/bin&#34;&nbsp;&#34;/bin&#34;&nbsp;&#34;/usr/bin/X11&#34;&nbsp;&#34;/usr/games&#34;&nbsp;&#34;/usr/local/bin&#34;&nbsp;&#34;.&#34;)
+
+<P>
+&gt;&nbsp;(string-split&nbsp;&#34;/&#34;&nbsp;&#34;/usr/local/bin&#34;)
+
+<P>
+(&#34;&#34;&nbsp;&#34;usr&#34;&nbsp;&#34;local&#34;&nbsp;&#34;bin&#34;)
+</DD>
+</DL><TT>(string-join</TT> <I>sep list</I><TT>)</TT> -&gt; <I>string</I> 
+<BR>
+Is the inverse transformation of <TT>string-split</TT>. It takes a list of string
+and returns a new string composed of all string of list separated with <I>sep</I>.
+Example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(string-join&nbsp;&#34;|&#34;&nbsp;(string-split&nbsp;&#34;:&#34;&nbsp;(hash-ref&nbsp;environ&nbsp;&#34;PATH&#34;)))
+
+<P>
+&#34;/usr/bin|/bin|/usr/bin/X11|/usr/games|/usr/local/bin|.&#34;
+
+<P>
+&gt;&nbsp;(string-join&nbsp;&#34;&lt;sep&gt;&#34;&nbsp;(string-split&nbsp;&#34;/:&#34;&nbsp;(hash-ref&nbsp;environ&nbsp;&#34;PATH&#34;)))
+
+<P>
+&#34;&lt;sep&gt;usr&lt;sep&gt;bin&lt;sep&gt;bin&lt;sep&gt;usr&lt;sep&gt;bin&lt;sep&gt;X11&lt;sep&gt;usr&lt;sep&gt;games&lt;sep&gt;usr&lt;sep&gt;local&lt;sep&gt;bin&lt;sep&gt;.&#34;
+</DD>
+</DL><TT>(string-translate</TT> <I>strimg from repl</I><TT>)</TT> -&gt; <I>string</I>
+
+<BR>
+Returns a new string, substituting the characters of <I>string</I> matching
+characters in the <I>from</I> string to the corresponding character in the <I>repl</I>
+string. Example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(string-translate&nbsp;&#34;Hello&nbsp;World&#34;&nbsp;&#34;HWo&#34;&nbsp;&#34;hwO&#34;)
+
+<P>
+&#34;hellO&nbsp;wOrld&#34;
+</DD>
+</DL><TT>(string-pack</TT> <I>template obj ...</I><TT>)</TT> -&gt; <I>string</I> 
+<BR>
+Creates a binary structure and returns it as <I>string</I>. The various <I>obj</I>
+arguments are placed successively in the target string by following the specifications
+of the <I>template</I> string. The template string defines a sequence of fields,
+where each field is described by a one-character type and an optional length.
+The type characters have the following meaning:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER">Character</TD>
+<TD ALIGN="LEFT">Description</TD>
+</TR>
+<TR><TD ALIGN="CENTER">a</TD>
+<TD ALIGN="LEFT">A string with arbitrary binary data, will be null padded.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">A</TD>
+<TD ALIGN="LEFT">An ASCII string, will be padded with spaces and null.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">Z</TD>
+<TD ALIGN="LEFT">An ASCII string, will be padded with nulls.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">b</TD>
+<TD ALIGN="LEFT">A bit string (ascending bit order).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">B</TD>
+<TD ALIGN="LEFT">A bit string (descending bit order).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">h</TD>
+<TD ALIGN="LEFT">A hex string (low nibble first).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">H</TD>
+<TD ALIGN="LEFT">A hex string (high nibble first).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">c</TD>
+<TD ALIGN="LEFT">A signed char value.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">C</TD>
+<TD ALIGN="LEFT">An unsigned char value.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">s</TD>
+<TD ALIGN="LEFT">A signed short value (16 bits).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">S</TD>
+<TD ALIGN="LEFT">An unsigned short value (16 bits).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">i</TD>
+<TD ALIGN="LEFT">A signed integer value (at least 32 bits).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">I</TD>
+<TD ALIGN="LEFT">An unsigned integer value (at least 32 bits).</TD>
+</TR>
+<TR><TD ALIGN="CENTER">L</TD>
+<TD ALIGN="LEFT">A signed long value.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">n</TD>
+<TD ALIGN="LEFT">A short in &#34;network&#34; (big-endian) order.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">N</TD>
+<TD ALIGN="LEFT">A long in &#34;network&#34; (big-endian) order.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">v</TD>
+<TD ALIGN="LEFT">A short in &#34;VAX&#34; (little-endian) order.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">V</TD>
+<TD ALIGN="LEFT">A long in &#34;VAX&#34; (little-endian) order.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">f</TD>
+<TD ALIGN="LEFT">A single-precision float in the native format.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">d</TD>
+<TD ALIGN="LEFT">A double-precision float in the native format.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">p</TD>
+<TD ALIGN="LEFT">A pointer-to-string in the native format.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">P</TD>
+<TD ALIGN="LEFT">A pointer-to-structure in the native format.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">x</TD>
+<TD ALIGN="LEFT">A null byte.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">X</TD>
+<TD ALIGN="LEFT">Remove byte.</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+<BR>
+<BR>
+
+<P>
+The following rules apply:
+
+<P>
+
+<UL>
+<LI>Each letter may optionally be followed by a number giving a repeat count. With
+all types except &#34;a&#34;, &#34;A&#34;, &#34;Z&#34;,
+&#34;b&#34;, &#34;B&#34;, &#34;h&#34;, &#34;H&#34;,
+and &#34;P&#34; the <TT>string-pack</TT> function will consume up
+that many values from the <I>obj</I> parameters. A `` *'' for the repeat
+count means to use however many parameters are left.
+</LI>
+<LI>The &#34;a&#34;, &#34;A&#34;, and &#34;Z&#34;
+types consume just one value, but pack it as a string of length count, padding
+with nulls or spaces as necessary. When unpacking, &#34;A&#34; strips
+trailing spaces and nulls, &#34;Z&#34; strips everything after the
+first null, and &#34;a&#34; returns data verbatim.
+</LI>
+<LI>Likewise, the &#34;b&#34; and &#34;B&#34; fields pack <I>one</I>
+string that many bits long.
+</LI>
+<LI>The &#34;h&#34; and &#34;H&#34; fields pack <I>one</I> string
+that many nibbles long.
+</LI>
+<LI>The &#34;p&#34; type packs a pointer to a null-terminated string.
+You are responsible for ensuring the string is not a temporary value (which
+can potentially get deallocated before you get around to using the packed result).
+The &#34;P&#34; type packs a pointer to a structure of the size indicated
+by the length. A NULL pointer is created if the corresponding value for &#34;p&#34;
+or &#34;P&#34; is '().
+</LI>
+</UL>
+<DL>
+<DT><STRONG>Note:</STRONG></DT>
+<DD>the <TT>string-pack</TT> was inspired from the PERL language. It has
+more or less the same syntax.
+</DD>
+</DL>
+<TT>(string-unpack</TT> <I>template string</I><TT>)</TT> -&gt; <I>list</I> 
+<BR>
+Extracts the fields contained in the <I>string</I> according to the specifications
+of the <I>template</I> string. The extracted elements are returned in order
+in a list. See <TT>string-pack</TT> for a description of the <I>template</I>.
+
+<P>
+<TT>(string-resize!</TT> <I>string len</I><TT>)</TT> -&gt; <I>string</I> 
+<BR>
+Changes the length of the string <I>string</I> to length <I>len</I>. If the
+string expands, the added characters will be filled with random data.
+
+<P>
+
+<H2><A NAME="SECTION00088000000000000000">
+7.8 Vector</A>
+</H2>
+
+<P>
+All procedures of R5RS are implemented.
+
+<P>
+<TT>(vector?</TT> <I>object</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a vector.
+
+<P>
+<TT>(make-vector</TT> <I>k [fill]</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a vector.
+
+<P>
+<TT>(vector</TT> <I>obj ...</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I> 
+<BR>
+Returns a newly allocated vector whose elements are the given arguments.
+
+<P>
+<TT>(vector-length</TT> <I>vector</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Returns the number of elements in <I>vector</I>. 
+
+<P>
+<TT>(vector-ref</TT> <I>vector k</I><TT>)</TT> -&gt; <I>&lt;object&gt;</I> 
+<BR>
+Returns the <I>k</I>th element of the vector. 
+
+<P>
+<TT>(vector-set!</TT> <I>vector k obj</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<BR>
+Sets the <I>k</I>th element of the vector to <I>obj</I>. 
+
+<P>
+<TT>(vector-&gt;list</TT> <I>vector</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I>
+<BR><TT>(list-&gt;vector</TT> <I>list</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I> 
+<BR>
+Converts a vector to a list and vice versa.
+
+<P>
+<TT>(vector-fill!</TT> <I>vector obj</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I> 
+<BR>
+Changes all elements of <I>vector</I> to object <I>obj</I>.
+
+<P>
+<TT>(vector-resize</TT> <I>vector newsize</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I>
+
+<BR>
+Changes the size of a vector to <I>newsize.</I> 
+
+<P>
+<TT>(vector-append</TT> <I>v1 v2</I><TT>)</TT> -&gt; <I>&lt;vector&gt;</I> 
+<BR>
+Creates a new vector which is composed of all elements of <I>v1</I> and of <I>v2,</I>
+appending <I>v2</I> to <I>v1.</I>
+
+<P>
+
+<H2><A NAME="SECTION00089000000000000000">
+7.9 Hash</A>
+</H2>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="1085"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+The various hash type</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><!-- MATH
+ $\includegraphics{hashes.eps}$
+ -->
+<IMG
+ WIDTH="524" HEIGHT="429" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\includegraphics{hashes.eps}"> </DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+
+<P></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+A hash is a data structure used to store key/value pairs for fast access. The
+keys are assumed to be unique. The acceptable key type depends on the hash type.
+For a generic type, any key may be used. For symbol hashes, only atoms or strings
+are acceptable. Atom hash is very special because <I>no value can be associated
+with key</I>. You can use atom hash only for setting keys and testing existence
+of keys.
+
+<P>
+<TT>(make-hash</TT> <I>[type]</I><TT>)</TT> -&gt; <I>&lt;hash&gt;</I> 
+<BR>
+Creates a hash. Hash types are: <TT>SCM_HASH_T_GEN</TT> for generic (normal)
+hashes, <TT>SCM_HASH_T_SYMBOL</TT> for symbol hash and <TT>SCM_HASH_T_ATOM</TT>
+for atom hash. If no type argument is given, a generic hash is created.
+
+<P>
+<TT>(make-symbol-hash)</TT> -&gt; <I>&lt;hash&gt;</I> 
+<BR>
+Creates a symbol hash.
+
+<P>
+<TT>(make-atom-hash)</TT> -&gt; <I>&lt;hash&gt;</I> 
+<BR>
+Creates an atom hash. Atom hash has no value associated with key.
+
+<P>
+<TT>(hash?</TT> <I>hash</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if it's a hash, <TT>#f</TT> otherwise. 
+
+<P>
+<TT>(atom-hash?</TT> <I>hash</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if it's an atom hash, <TT>#f</TT> otherwise. 
+
+<P>
+<TT>(symbol-hash?</TT> <I>hash</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if it's a symbol hash, <TT>#f</TT> otherwise. 
+
+<P>
+<TT>(generic-hash?</TT> <I>hash</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if it's a generic hash, <TT>#f</TT> otherwise. 
+
+<P>
+<TT>(hash-set!</TT> <I>hash key value</I><TT>)</TT> -&gt; <I>&lt;hash&gt;</I> 
+<BR>
+Creates/changes the value associated with <I>key.</I> 
+
+<P>
+<TT>(hash-ref</TT> <I>hash key</I><TT>)</TT> -&gt; <I>&lt;value&gt;</I> 
+<BR>
+Returns the value associated with the key or <TT>#undefined</TT> if not found. 
+
+<P>
+<TT>(hash-stat</TT> <I>hash</I><TT>)</TT> -&gt; <TT>#undefined</TT> 
+<BR>
+Prints the statistics for the hash. Useful for hash optimization.
+
+<P>
+<TT>(hash-&gt;list</TT> <I>hash</I><TT>)</TT> -&gt; <I>&lt;list&gt;</I> 
+<BR>
+Returns a list containing all elements of the <I>hash.</I> Elements are association
+pairs where car is the key and cdr is the value. 
+
+<P>
+<TT>(list-&gt;hash</TT> <I>list</I><TT>)</TT> -&gt; <I>&lt;hash&gt;</I> 
+<BR>
+Builds a hash from an association list. 
+
+<P>
+
+<H2><A NAME="SECTION000810000000000000000">
+7.10 Number</A>
+</H2>
+
+<P>
+The documentation is again very skinny here ... refer to R5RS.
+
+<P>
+<TT>(number?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(integer?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(real?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(exact?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(inexact?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Type predicates. 
+
+<P>
+<TT>(&lt;</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(&lt;=</TT> <I>n1 n2...</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(&gt;=</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><TT>(&gt;</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>(= <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I>
+<BR>
+Numeric comparisons.
+
+<P>
+<TT>(zero?</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> &nbsp;
+<BR><TT>(positive?</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> &nbsp;
+<BR><TT>(negative?</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> &nbsp;
+<BR><TT>(odd?</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> &nbsp;
+<BR><TT>(even?</TT> <I>number</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Number classes.
+
+<P>
+<TT>(min</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(max</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Returns the smallest, respectively the largest number of the given arguments.
+
+<P>
+<TT>(+</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(-</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(*</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(/</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Arithmetic operations.
+
+<P>
+<TT>(abs</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Absolute value.
+
+<P>
+<TT>(quotient</TT> <I>n1 n2</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(remainder</TT> <I>n1 n2</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(modulo</TT> <I>n1 n2</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Integer division and modulo operations.
+
+<P>
+<TT>(gcd</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(lcm</TT> <I>n1 n2 ...</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Gcd and lcm of numbers.
+
+<P>
+<TT>(floor</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> &nbsp;
+<BR><TT>(ceil</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(truncate</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(round</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Rounding operations.
+
+<P>
+<TT>(exp</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(log</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(log10</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(sin</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(cos</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(tan</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(asin</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(acos</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(atan</TT> <I>n1 n2</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(sqrt</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(expt</TT> <I>n1 n2</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Mathematical functions.
+
+<P>
+<TT>(random)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Generates a random number in range 0.0-1.0 exclusive. Maximum precision is 48
+bits.
+
+<P>
+<TT>(exact-&gt;inexact</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(inexact-&gt;exact</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Type conversions 
+
+<P>
+<TT>(number-&gt;string</TT> <I>number [base]</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I>
+
+<BR><TT>(string-&gt;number</TT> <I>string [base]</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I>
+<BR>
+Convert to/from string.
+
+<P>
+<TT>(1+</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(2+</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(1-</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR><TT>(2-</TT> <I>n</I><TT>)</TT> -&gt; <I>&lt;number&gt;</I> 
+<BR>
+Speedy increments and decrements.
+
+<P>
+<TT>(float-precision</TT> <I>digits</I><TT>)</TT> -&gt; <I>old</I> 
+<BR>
+Set the number of digits after the '<TT>.</TT>' to display when printing a float
+number.
+
+<P>
+<TT>pi</TT>&nbsp;
+<BR>
+The number PI.
+
+<P>
+
+<H2><A NAME="SECTION000811000000000000000">
+7.11 Input / output</A>
+</H2>
+
+<P>
+Input-output in Scheme is based on the concept of port. Refer to 6.6.1 in R5RS.
+
+<P>
+<TT>(port?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a valid port object. 
+
+<P>
+<TT>(input-port?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a valid input port object. 
+
+<P>
+<TT>(output-port?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a valid output port object. 
+
+<P>
+<TT>(current-input-port)</TT> -&gt; <I>&lt;port&gt;</I>
+<BR><TT>(current-output-port)</TT> -&gt; <I>&lt;port&gt;</I>
+<BR><TT>(current-error-port)</TT> -&gt; <I>&lt;port&gt;</I> 
+<BR>
+Returns the current port for the default input / output / error stream. 
+
+<P>
+<TT>(with-input-from-file</TT> <I>str thunk</I><TT>)</TT> -&gt; <I>&lt;anything&gt;</I>
+<BR><TT>(with-output-to-file</TT> <I>str thunk</I><TT>)</TT> -&gt; <I>&lt;anything&gt;</I>
+
+<BR>
+Redirects standard input or output to/from the file named by <I>str</I>. <I>thunk</I>
+is a procedure without any arguments. The value returned is the value returned
+by the <I>thunk</I>.
+
+<P>
+Example of redirections with <TT>with-output-to-file</TT> and <TT>with-input-from-file</TT>:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(with-output-to-file&nbsp;&#34;/tmp/tst&#34;&nbsp;(lambda&nbsp;()&nbsp;(write&nbsp;123)&nbsp;(newline)))
+
+<P>
+#undefined
+
+<P>
+&gt;&nbsp;(system&nbsp;&#34;cat&nbsp;/tmp/tst&#34;)
+
+<P>
+123
+
+<P>
+0
+
+<P>
+&gt;&nbsp;(with-input-from-file&nbsp;&#34;/tmp/tst&#34;&nbsp;(lambda&nbsp;()&nbsp;(read)))
+
+<P>
+123
+</DD>
+</DL><TT>(with-input-from-string</TT> <I>str thunk</I><TT>)</TT> -&gt; <I>&lt;anything&gt;</I>
+<BR><TT>(with-output-to-string</TT> <I>thunk</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I> 
+<BR>
+Redirects the standard input or output to/from <I>string</I>. <I>thunk</I> is
+a procedure without any arguments. The value returned by <TT>with-input-from-string</TT>
+is the value returned by the <I>thunk</I>. The value returned by <TT>with-output-to-string</TT>
+is the entire string built in <I>thunk.</I>
+
+<P>
+For example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(with-output-to-string&nbsp;(lambda&nbsp;()&nbsp;(write&nbsp;&#34;Hello&nbsp;world&#34;)&nbsp;(write&nbsp;123)))
+
+<P>
+&#34;&#92;&#34;Hello&nbsp;world&#92;&#34;123&#34;
+</DD>
+</DL><TT>(open-input-file</TT> <I>string</I><TT>)</TT> -&gt; <I>&lt;port&gt;</I> &nbsp;
+<BR><TT>(open-output-file</TT> <I>string</I><TT>)</TT> -&gt; <I>&lt;port&gt;</I> 
+<BR>
+Opens the file named by <I>string</I> for reading respectively writing. An error
+exception is thrown if the file cannot be opened.
+
+<P>
+<TT>(open-input-string</TT> <I>string</I><TT>)</TT> -&gt; <I>&lt;port&gt;</I> &nbsp;
+<BR><TT>(open-output-string)</TT> -&gt; <I>&lt;port&gt;</I> 
+
+<P>
+**** Open file for reading respectively writing. An error exception
+is thrown when file cannot be opened. ****
+
+<P>
+<TT>(get-output-string</TT> <I>&lt;output-string-port&gt;</I><TT>)</TT> -&gt; <I>&lt;string&gt;</I>
+
+<BR>
+Returns the string currently built at the <I>output-string-port</I>.
+
+<P>
+<TT>(close-port</TT> <I>port</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> | <I>&lt;string&gt;</I>
+<BR><TT>(close-input-port</TT> <I>port</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> | <I>&lt;string&gt;</I>
+<BR><TT>(close-output-port</TT> <I>port</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> | <I>&lt;string&gt;</I>
+
+<BR>
+These functions close an open port. If <I>port</I> is an output string port,
+the string output is returned. ****
+
+<P>
+<TT>(read-char [</TT><I>port</I><TT>])</TT> -&gt; <I>&lt;char&gt; | #eof</I>
+<BR><TT>(peek-char [</TT><I>port</I><TT>])</TT> -&gt; <I>&lt;char&gt; | #eof</I> 
+<BR>
+Reads a character from the port passed as an argument. If no port argument is
+given, the <TT>current-input-port</TT> is used as input port. <TT>peek-char</TT>
+does not advance the character position of the port.
+
+<P>
+<TT>(read-line [</TT><I>port</I><TT>])</TT> -&gt; <I>&lt;string&gt; | #eof</I>
+<BR>
+Reads a line from the port passed as an argument. If no port argument is given,
+the <TT>current-input-port</TT> is used as the input port.
+
+<P>
+<TT>(eof-object?</TT> <I>obj</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a <TT>#eof.</TT>
+
+<P>
+<TT>(char-ready?</TT> <I>port</I><TT>)</TT> -&gt; <I>&lt;boolean&gt;</I> 
+<BR><B>Not implemented.</B> I'm sorry, but I don't see why you want to use this
+function in a Unix environment.
+
+<P>
+<TT>(flush-output [</TT><I>port</I><TT>] )</TT> -&gt; <TT>#t</TT>
+<BR>
+Flushes the port. If no port is given, the default output port is flushed. 
+
+<P>
+<TT>(file-position</TT> <I>port [pos]</I><TT>)</TT> -&gt; <I>position</I>
+<BR>
+Gets or sets the current position on a file port. If no position is given the
+current position is returned. Otherwise, the current file position is set to
+the <I>pos</I> value.
+
+<P>
+
+<H2><A NAME="SECTION000812000000000000000">
+7.12 Error handling</A>
+</H2>
+
+<P>
+The error handling is implemented by two functions: <TT>catch</TT> and <TT>throw</TT>.
+The <TT>catch</TT> form defines a context where errors are trapped and a function
+to handle the errors occurring in that context. The <TT>throw</TT> function
+signals an error of a specific type and provides a description of the error
+in a string. The error signal is sent to the <TT>catch</TT> having the same
+<TT>tag</TT> or to the innermost resp. top-level <TT>catch</TT> if the tag is
+<TT>#f</TT> resp. <TT>#t</TT>. When a match is found, the handler is called
+with the tag and the string thrown as arguments. When the handler terminates,
+the execution resumes after the catch form and the value returned by the handler
+will be returned by the catch form.
+
+<P>
+When throwing, the tag <TT>#t</TT> can be used to force a top-level error with
+no resume, some kind of abort.
+
+<P>
+<TT>(catch</TT> <I>taglist</I> <I>handler expr</I> <TT>...</TT>) 
+<BR>
+The <TT>catch</TT> construct traps exceptions occurring during the execution
+of the expressions. The <I>taglist</I> is a list of tags being caught. The <I>handler</I>
+function takes 2 arguments, a <I>tag</I> and a <I>message</I>. The <I>handler</I>
+function is called when an exception matching one of the tags has been thrown
+from inside the <I>expr</I>. If no exceptions occur, the catch construct returns
+the value of the last expression. If an exception is trapped, the value returned
+is the value returned by the handler function, if any.
+
+<P>
+<TT>(throw</TT> <I>tag string</I><TT>)</TT> 
+<BR>
+Sends an exception to the first catch matching the <I>tag</I>. The <I>tag</I>
+and <I>string</I> are passed to the <I>handler</I> function for display purposes.
+If <I>tag</I> is <TT>#t</TT> the top-level catch is activated. If the <I>tag</I>
+is <TT>#f</TT> the handler of the enclosing catch is activated.
+
+<P>
+Example of a throw to an enclosing catch:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(catch&nbsp;(a&nbsp;b)&nbsp;(lambda&nbsp;(t&nbsp;m)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;handler:&nbsp;catch:&nbsp;&#34;)&nbsp;(display&nbsp;t)&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;&nbsp;msg:&nbsp;&#34;)&nbsp;(print&nbsp;m)&nbsp;#f)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(throw&nbsp;'a&nbsp;&#34;ERROR&nbsp;A&#34;))
+
+<P>
+***&nbsp;throw:&nbsp;tag=a&nbsp;msg=ERROR&nbsp;A
+
+<P>
+***&nbsp;catch:&nbsp;scm_catch_list=()
+
+<P>
+handler:&nbsp;catch:&nbsp;a&nbsp;msg:&nbsp;ERROR&nbsp;A
+
+<P>
+#f
+</DD>
+</DL>Example of a <I>throw</I> to first enclosing catch:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(catch&nbsp;(a&nbsp;b)&nbsp;(lambda&nbsp;(t&nbsp;m)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;handler:&nbsp;catch:&nbsp;&#34;)&nbsp;(display&nbsp;t)&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;&nbsp;msg:&nbsp;&#34;)&nbsp;(print&nbsp;m)&nbsp;#f)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(throw&nbsp;#f&nbsp;&#34;ERROR&nbsp;A&#34;))
+
+<P>
+***&nbsp;throw:&nbsp;tag=#f&nbsp;msg=ERROR&nbsp;A
+
+<P>
+***&nbsp;catch:&nbsp;scm_catch_list=()
+
+<P>
+handler:&nbsp;catch:&nbsp;#f&nbsp;msg:&nbsp;ERROR&nbsp;A
+
+<P>
+#f
+</DD>
+</DL>Example of a throw to top-level catch:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(catch&nbsp;(a&nbsp;b)&nbsp;(lambda&nbsp;(t&nbsp;m)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;handler:&nbsp;catch:&nbsp;&#34;)&nbsp;(display&nbsp;t)&nbsp;
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(display&nbsp;&#34;&nbsp;msg:&nbsp;&#34;)&nbsp;(print&nbsp;m)&nbsp;#f)
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;(throw&nbsp;#t&nbsp;&#34;TOPLEVEL&nbsp;ERROR&#34;))
+
+<P>
+***&nbsp;throw:&nbsp;tag=#t&nbsp;msg=TOPLEVEL&nbsp;ERROR
+
+<P>
+toplevel&nbsp;restart:&nbsp;k=1
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION000813000000000000000">
+7.13 Module</A>
+</H2>
+
+<P>
+The module system implements private name spaces in different level. It provides
+a way to control what names may be used from outside the module. This is a small
+example of module definitions:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(module&nbsp;A
+
+<P>
+&nbsp;&nbsp;(export&nbsp;x)
+
+<P>
+&nbsp;&nbsp;(define&nbsp;x&nbsp;10))
+
+<P>
+&nbsp;
+
+<P>
+(module&nbsp;B
+
+<P>
+&nbsp;&nbsp;(export&nbsp;x)
+
+<P>
+&nbsp;&nbsp;(define&nbsp;x&nbsp;20))
+
+<P>
+&nbsp;
+
+<P>
+(module&nbsp;C
+
+<P>
+&nbsp;&nbsp;(import&nbsp;A&nbsp;B)
+
+<P>
+&nbsp;&nbsp;(print&nbsp;x))
+
+<P>
+&nbsp;
+
+<P>
+=&gt;&nbsp;10
+</DD>
+</DL>I have a syntactic sugar notation: to access objects of a modules you can use
+the module::symbol notation. Example: 
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(print&nbsp;A::x)
+
+<P>
+=&gt;&nbsp;10
+</DD>
+</DL><B>Note:</B> the default module which holds all the Scheme definitions is
+the <TT>global</TT> module.
+<BR>
+<P>
+<TT>(module</TT> <I>module expr...</I>) 
+<BR>
+Creates or reuses a module. Every module uses a separate symbol hash to hold
+the definitions it contains. Definitions occurring in a module will not conflict
+with definitions in other modules.
+
+<P>
+<TT>(export</TT> <I>symbol1 symbol2 ...</I>) 
+<BR>
+Gives a list of symbols that can be used outside of this module.
+
+<P>
+<TT>(import</TT> <I>module1 module2 ...</I>) 
+<BR>
+Imports all the exported symbols of the modules listed here. The list of modules
+is searched from left to right.
+
+<P>
+<TT>(current-module)</TT> -&gt; <I>module</I> 
+<BR>
+Returns the current module.
+
+<P>
+<TT>(set-current-module</TT> <I>module</I>) 
+<BR>
+Sets the current module 
+
+<P>
+<TT>(make-module</TT> <I>name</I><TT>)</TT>-&gt; <I>module</I> 
+<BR>
+Creates a new module. If a module of that name already exists, the module associated
+with name is returned.
+
+<P>
+<TT>module-hash</TT> -&gt; <I>hash</I> 
+<BR>
+Returns the hash associating names to modules.
+
+<P>
+<TT>(module-exports</TT> <I>module</I><TT>)</TT>-&gt; <I>list</I> 
+<BR>
+Returns the list of exported symbols. 
+
+<P>
+<TT>(module-imports</TT> <I>module</I><TT>)</TT>-&gt; <I>list</I> 
+<BR>
+Returns the list of imported symbols. 
+
+<P>
+<TT>(module-symbols</TT> <I>module</I><TT>)</TT>-&gt; <I>hash</I> 
+<BR>
+Returns a hash containing the symbol list. 
+
+<P>
+<TT>(find-module</TT> <I>name</I><TT>)</TT>-&gt; <I>module</I> 
+<BR>
+Searches a module in module hash and returns a module or #f if not found. 
+
+<P>
+*REVIEW*
+
+<P>
+
+<H2><A NAME="SECTION000814000000000000000">
+7.14 Pointer</A>
+</H2>
+
+<P>
+Pointers are used to pass opaque types. You will receive pointers when you use
+the <TT>:item</TT> keyword in the foreign function interface.
+
+<P>
+<TT>(pointer?</TT> <I>obj</I><TT>)</TT>-&gt; <I>&lt;boolean&gt;</I>
+<BR>
+Returns <TT>#t</TT> when obj is a pointer <TT>#f</TT> otherwise.
+
+<P>
+<TT>(null-pointer?</TT> <I>obj</I><TT>)</TT>-&gt; <I>&lt;boolean&gt;</I>
+<BR>
+Returns <TT>#t</TT> when obj is a null pointer <TT>#f</TT> otherwise.
+
+<P>
+
+<H2><A NAME="SECTION000815000000000000000">
+7.15 Process</A>
+</H2>
+
+<P>
+QScheme supports process forking and piping. The interface is described hereafter.
+
+<P>
+<TT>(make-process</TT> <I>in out err string ...</I><TT>)</TT>-&gt; <I>&lt;process&gt;</I>
+
+<BR><TT>(make-process</TT> <I>in out err list</I><TT>)</TT>-&gt; <I>&lt;process&gt;</I>
+<BR><TT>(make-process</TT> <I>in out err vector</I><TT>)</TT>-&gt; <I>&lt;process&gt;</I>
+<BR>
+Creates a new process. The values allowed for <I>in</I>, <I>out</I> and <I>err</I>
+are given in the table <A HREF="#make_process_port_type">4</A>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="2343"></A>
+<TABLE>
+<CAPTION><STRONG>Table 4:</STRONG>
+Allowed values for make-process <I>in out</I>
+and <I>err</I></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Type</TD>
+<TD ALIGN="LEFT">Description</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:null</TT></TD>
+<TD ALIGN="LEFT">Nothing connected here</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>:pipe</TT></TD>
+<TD ALIGN="LEFT">Create a pipe</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I>string</I></TD>
+<TD ALIGN="LEFT">Open a file and redirect from/to it</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I>port</I></TD>
+<TD ALIGN="LEFT">Use an already opened port</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I>number</I></TD>
+<TD ALIGN="LEFT">Redirect to an already opened slot</TD>
+</TR>
+</TABLE></DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+
+<P>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+. After this call, a new process is created and a process descriptor is returned.
+If anything goes wrong, an error will be generated. 
+
+<P>
+The command specification string can be provided to <TT>make-process</TT> in
+three different ways, namely as as in-lined strings or as a list of strings
+or an array of strings . Example of such variations are given here:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(make-process&nbsp;:null&nbsp;:pipe&nbsp;:pipe&nbsp;&#34;ls&#34;&nbsp;&#34;-al&#34;&nbsp;&#34;/tmp&#34;)
+
+<P>
+(make-process&nbsp;:null&nbsp;:pipe&nbsp;:pipe&nbsp;'(&#34;ls&#34;&nbsp;&#34;-al&#34;&nbsp;&#34;/tmp&#34;))
+
+<P>
+(make-process&nbsp;:null&nbsp;:pipe&nbsp;:pipe&nbsp;#(&#34;ls&#34;&nbsp;&#34;-al&#34;&nbsp;&#34;/tmp&#34;))
+</DD>
+</DL>The first string argument is the full path of the command to execute and is
+also the <TT>argv[0]</TT> of the command.
+
+<P>
+<TT>(process?</TT> <I>obj</I><TT>)</TT>-&gt; <I>&lt;boolean&gt;</I>
+<BR>
+Returns <TT>#t</TT> when obj is a process <TT>#f</TT> otherwise.
+
+<P>
+<TT>(process-pid</TT> <I>proc</I><TT>)</TT>-&gt; <I>pid</I>
+<BR>
+Returns the process id (pid) of the process.
+
+<P>
+<TT>(process-input</TT> <I>proc</I><TT>)</TT>-&gt; <I>&lt;port</I>&gt;
+<BR><TT>(process-output</TT> <I>proc</I><TT>)</TT>-&gt; <I>&lt;port</I>&gt;
+<BR><TT>(process-error</TT> <I>proc</I><TT>)</TT>-&gt; <I>&lt;port</I>&gt;
+<BR>
+Returns the port corresponding to the process input, output and error stream.
+You can use these ports to write or read data to/from the process.
+
+<P>
+<TT>(process-status</TT> <I>proc</I>) -&gt; <I>status</I>
+<BR>
+Returns the status of a process.
+
+<P>
+<TT>(process-wait</TT> <I>proc</I><TT>)</TT>-&gt; <I>status</I>
+<BR>
+Waits for a process to terminate. If <I>proc</I> is <TT>#t</TT>, waits for
+any process to terminate. Returns the exit status of the process. After a <TT>process-wait</TT>
+completes<I>,</I> the process does not exist anymore and the ports are closed.
+You could also access the status of the process with the <TT>process-status</TT>
+function.
+
+<P>
+<TT>(process-use-execv</TT> <I>flag</I><TT>)</TT>-&gt; <I>oldvalue</I>
+<BR>
+Determines if processes are created with <TT>execv</TT> or <TT>execvp</TT>.
+When execv is used, first argument must be the full path to the command. When
+<TT>execvp</TT> is used, the <TT>PATH</TT> environment variable is search to
+find the command. Returns the value of the flag before the call. 
+
+<P>
+<DL>
+<DT><STRONG>Note:</STRONG></DT>
+<DD>By default, <TT>execvp</TT> is used.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION000816000000000000000">
+7.16 Threads</A>
+</H2>
+
+<P>
+<TT>(thread</TT> <I>thunk</I><TT>)</TT>-&gt; <I>thread</I>
+<BR>
+Invoke <I>thunk</I> with no arguments in a new thread. Returns <I>thread</I>,
+a thread descriptor. When execution of <I>thunk</I> returns, the thread created
+to invoque <I>thunk</I> terminates.
+
+<P>
+<TT>(thread?</TT> <I>obj</I><TT>)</TT>-&gt; <I>boolean</I>
+<BR>
+Returns <TT>#t</TT> if <I>obj</I> is a thread descriptor, <TT>#f</TT> otherwise.
+
+<P>
+<TT>(thread-id</TT> <I>thread</I><TT>)</TT>-&gt; <I>number</I>
+<BR>
+Returns the <I>pthread id</I> associated with <I>thread.</I>
+
+<P>
+<TT>(current-thread)</TT>-&gt; <I>thread</I>
+<BR>
+Returns the <I>thread</I> descriptor for current thread.
+
+<P>
+<TT>(thread-running?</TT> <I>thread</I><TT>)</TT>-&gt; <I>boolean</I>
+<BR>
+Returns <TT>#t</TT> if thread is currently running, <TT>#f</TT> otherwise.
+
+<P>
+<TT>(thread-wait</TT> <I>thread</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Wait until <I>thread</I> terminates. 
+
+<P>
+<TT>(thread-kill</TT> <I>thread</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Terminate <I>thread.</I>
+
+<P>
+<TT>(thread-exit</TT> <I>thread</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Terminates current <I>thread</I>. This function never returns.
+
+<P>
+<TT>(thread-dump</TT> <I>thread</I><TT>)</TT> -&gt; <TT>#undefined</TT> 
+<BR>
+Dump the content of a thread. Mostly for debugging purpose.
+
+<P>
+
+<H2><A NAME="SECTION000817000000000000000">
+7.17 Mutexes</A>
+</H2>
+
+<P>
+A mutex is a MUTual EXclusion device, and is useful for protecting shared data
+structures from concurrent modifications, and implementing critical sections
+and monitors.
+
+<P>
+A mutex has two possible states: <I>unlocked</I> and <I>locked</I>. A mutex
+can never be owned by two different threads simultaneously. A thread attempting
+to lock a mutex that is already locked by another thread is suspended until
+the owning thread unlocks the mutex first.
+
+<P>
+<TT>(make-mutex)</TT> -&gt; <I>mutex</I>
+<BR>
+Create a new <I>mutex</I>
+
+<P>
+<TT>(mutex?</TT> <I>obj</I><TT>)</TT> -&gt; <I>boolean</I> 
+<BR>
+Returns <TT>#t</TT> if obj is a <I>mutex</I>, <TT>#f</TT> otherwise
+
+<P>
+<TT>(mutex-lock</TT> mutex<TT>)</TT> -&gt; <TT>#undefined</TT>
+<BR>
+Lock <I>mutex</I>. If <I>mutex</I> is already locked, thread execution is suspended
+until <I>mutex</I> is unlocked
+
+<P>
+<TT>(mutex-try-lock</TT> <I>mutex</I><TT>)</TT> -&gt; <I>boolean</I>
+<BR>
+Try to lock <I>mutex</I>. If <I>mutex</I> is already locked, <TT>#f</TT> is
+returned immediately, otherwise the <I>mutex</I> is locked and <TT>#t</TT>
+is returned.
+
+<P>
+<TT>(mutex-unlock</TT> <I>mutex</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+<BR>
+Unlock <I>mutex</I>
+
+<P>
+
+<H2><A NAME="SECTION000818000000000000000">
+7.18 Semaphores</A>
+</H2>
+
+<P>
+Semaphores are counters for resources shared between threads. The basic operations
+on semaphores are: increment the counter atomically, and wait until the counter
+is non-null and decrement it atomically.
+
+<P>
+<TT>(make-semaphore</TT> <I>[value]</I>) -&gt; <I>semaphore</I>
+<BR>
+Create a new <I>semaphore</I> object.
+
+<P>
+<TT>(semaphore?</TT> <I>object</I><TT>)</TT> -&gt; <I>boolean</I> 
+<BR>
+Returns <TT>#t</TT> if <I>object</I> is a semaphore, <TT>#f</TT> otherwise.
+
+<P>
+<TT>(semaphore-wait</TT> <I>semaphore</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<P>
+Suspend the calling thread until <I>semaphore</I> has non-zero count, then decrease
+the semaphore count.
+
+<P>
+<TT>(semaphore-try-wait</TT> <I>semaphore</I><TT>)</TT> -&gt; <I>boolean</I> 
+<BR>
+Non blocking variant of <TT>semaphore-wait</TT>. If <I>semaphore</I> has non-zero
+count, the count is atomically decreased and <TT>#t</TT> is returned. If <I>semaphore</I>
+count is zero, <TT>#f</TT> is returned.
+
+<P>
+<TT>(semaphore-post</TT> <I>semaphore</I><TT>)</TT> -&gt; <TT>#undefined</TT>
+
+<BR>
+Atomically increases the count of <I>semaphore</I>.
+
+<P>
+<TT>(semaphore-get-value</TT> <I>semaphore</I><TT>)</TT> -&gt; <I>number</I> 
+<BR>
+Return the count assiociated to the <I>semaphore</I>.
+
+<P>
+
+<H2><A NAME="SECTION000819000000000000000">
+7.19 Miscellaneous</A>
+</H2>
+
+<P>
+<TT>(apropos</TT> <I>string</I><TT>)</TT>-&gt; <I>list</I>
+<BR>
+Returns a list of known symbols that contains the <I>string.</I>
+
+<P>
+<TT>(whatis</TT> <I>string</I><TT>)</TT>-&gt; <TT>#undefined</TT>
+<BR>
+Searches the <TT>whatis.qs</TT> file and displays the definitions of the words
+matching <I>string</I>. The <TT>whatis.qs</TT> file is built with the <TT>mkwhatis</TT>
+script. The string <I>string</I> may end with a wild card character (#&#92;),
+in which case all entries beginning with the significant part of <I>string</I>
+will be returned.
+
+<P>
+Example of <TT>whatis</TT> usage :
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(whatis&nbsp;&#34;set&#34;)&nbsp;
+
+<P>
+(set!&nbsp;VAR&nbsp;EXPR)&nbsp;=&gt;&nbsp;VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SYNTAX]&nbsp;
+
+<P>
+&nbsp;&nbsp;Evaluates&nbsp;EXPR&nbsp;and&nbsp;stores&nbsp;the&nbsp;resulting&nbsp;value&nbsp;in&nbsp;
+
+<P>
+&nbsp;&nbsp;the&nbsp;location&nbsp;to&nbsp;which&nbsp;VAR&nbsp;is&nbsp;bound.
+
+<P>
+(set-car!&nbsp;PAIR&nbsp;OBJ)&nbsp;=&gt;&nbsp;#undefined&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;R5RS]&nbsp;
+
+<P>
+&nbsp;&nbsp;Stores&nbsp;OBJ&nbsp;in&nbsp;the&nbsp;car&nbsp;field&nbsp;of&nbsp;PAIR.
+
+<P>
+(set-cdr!&nbsp;PAIR&nbsp;OBJ)&nbsp;=&gt;&nbsp;#undefined&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[R5RS]&nbsp;&nbsp;
+<BR>&nbsp;&nbsp;Stores&nbsp;OBJ&nbsp;in&nbsp;the&nbsp;cdr&nbsp;field&nbsp;of&nbsp;PAIR.
+
+<P>
+(set-current-module&nbsp;MODULE)&nbsp;=&gt;&nbsp;MODULE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[QScheme]&nbsp;
+
+<P>
+&nbsp;&nbsp;Set&nbsp;MODULE&nbsp;as&nbsp;current&nbsp;module&nbsp;for&nbsp;symbol&nbsp;search.
+
+<P>
+(set-aux!&nbsp;OBJ&nbsp;VAL)&nbsp;=&gt;&nbsp;NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[QScheme]&nbsp;
+
+<P>
+&nbsp;&nbsp;Associate&nbsp;a&nbsp;value&nbsp;to&nbsp;the&nbsp;aux&nbsp;pointer&nbsp;of&nbsp;object.&nbsp;
+
+<P>
+&nbsp;&nbsp;THIS&nbsp;IS&nbsp;A&nbsp;DANGEROUS&nbsp;FUNCTION.
+</DD>
+</DL>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html267"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html263"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html257"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html265"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html268"
+  HREF="node9.html">8 Foreign function interface</A>
+<B> Up:</B> <A NAME="tex2html264"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html258"
+  HREF="node7.html">6 Expressions</A>
+ &nbsp <B>  <A NAME="tex2html266"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

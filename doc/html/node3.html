@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2 Introduction</TITLE>
+<META NAME="description" CONTENT="2 Introduction">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html189"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html185"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html179"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html187"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html190"
+  HREF="node4.html">3 How it works</A>
+<B> Up:</B> <A NAME="tex2html186"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html180"
+  HREF="node2.html">1 Preamble</A>
+ &nbsp <B>  <A NAME="tex2html188"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html191"
+  HREF="node3.html#SECTION00031000000000000000">2.1 History</A>
+<LI><A NAME="tex2html192"
+  HREF="node3.html#SECTION00032000000000000000">2.2 Goodies</A>
+<LI><A NAME="tex2html193"
+  HREF="node3.html#SECTION00033000000000000000">2.3 Limitations</A>
+<LI><A NAME="tex2html194"
+  HREF="node3.html#SECTION00034000000000000000">2.4 Deviations from R5RS</A>
+<LI><A NAME="tex2html195"
+  HREF="node3.html#SECTION00035000000000000000">2.5 Design principle</A>
+<LI><A NAME="tex2html196"
+  HREF="node3.html#SECTION00036000000000000000">2.6 References</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 Introduction</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 History</A>
+</H2>
+
+<P>
+I started to write QScheme because I wanted to write a midi sequencer for Linux.
+I had already written a sequencer about ten years ago, for the popular Atari
+ST, based upon an optimizing subroutine-threaded Forth. My idea was to use an
+embedded language in the sequencer, in which I could code most of the GUI and
+which could offer the user access to all the functions of the sequencer.
+
+<P>
+SIOD was the first embedded language I looked at. SIOD has good interfacing
+capabilities with the C language. This looked promising. I also decided to use
+the Tk toolkit for the GUI. Nice base to start with. I began to code a prototype
+which worked more or less satisfactorily. The main problem I faced was that
+SIOD seemed far too slow. It didn't seem feasible to let the user write MIDI
+sample handling functions in or with SIOD. And even less possible to code the
+entire GUI using SIOD - it would also have been too slow.
+
+<P>
+So I looked at the other Scheme implementations available, with emphasis on
+speed and easy interfacing. I considered SCM, Bigloo, Gambit, STk, Rscheme,
+Sick and many others. Some were fast but difficult to embed, some were slow
+but easy to interface, others were just compilers and I did not want to waste
+time with compilations. After a good deal of searching I had not found a fast
+and embeddable Scheme. That's why I finally decided to write one.
+
+<P>
+So, from the outset my goal was to have a fast Scheme, with good C interfacing
+and painless embedding facilities. My Scheme has these features and I'm proud
+of it. Now, it's not yet perfect, but it is good enough for my projects.
+
+<P>
+I should emphasize: QScheme is a really <I>fast</I> intepreter. My current benchmarks
+(** <B><I>Table missing</I></B> **) show it is 2 to 10 times faster
+than other Scheme interpreters<A NAME="tex2html1"
+  HREF="footnode.html#foot62"><SUP>1</SUP></A>, and just a little slower than Bigloo, which compiles to C. On most of the
+benchmarks, QScheme beats Perl and other scripting languages by a factor of
+2 and is also faster than Java, without compilation. Yes - it's good enough
+for me.
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Goodies</A>
+</H2>
+
+<P>
+QScheme comes with support for modules, dynamic libraries, foreign function
+calls and foreign variable sharing.
+
+<P>
+It should be easy to add new types. In fact the <I>string</I> type is already
+written as a pure extension. New types not only specify how to handle objects
+but also how to <I>recognize</I> them during parsing (read).
+
+<P>
+It also should be easy to add new syntactic constructs, because the syntax is
+table driven. As a general design rule, I used tables as often as possible.
+This should lead to better flexibility.
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+2.3 Limitations</A>
+</H2>
+
+<P>
+Unfortunately the world is bad and QScheme is not perfect. One important limitation
+being that 
+
+<P>
+
+<UL>
+<LI>QScheme should be compiled with GCC., because it uses some specific features
+of the GCC compiler (specifically the computed gotos). Sorry, but QScheme will
+not compile with a compiler lacking support for this feature. 
+</LI>
+</UL>
+This also means that 
+
+<P>
+
+<UL>
+<LI>QScheme is not quite as portable as other Scheme implementations. It is currently
+known to run on Linux (i386 and Sparc) and Solaris (2.6).
+</LI>
+</UL>
+But I don't think it would be difficult to port QScheme to other Unices, as
+long as GCC is available.
+
+<P>
+
+<H2><A NAME="SECTION00034000000000000000">
+2.4 Deviations from R5RS</A>
+</H2>
+
+<P>
+QScheme is mostly R5RS compliant, but not all required features are currently
+implemented. Other possibly significant deviations from the R5RS specs include
+:
+
+<P>
+
+<UL>
+<LI>QScheme is case-sensitive.
+</LI>
+<LI><TT>(set! ...)</TT> does not implicitly <TT>(define ...)</TT> at the top level.
+</LI>
+<LI>The <TT>call/cc</TT> is not currently implemented (most of the code is here,
+but not debugged and tested). In replacement, you can use the <TT>(catch...)
+(throw)</TT> mechanism which is sufficient is most cases.
+</LI>
+</UL>
+Refer to section <A HREF="node6.html#Qscm_ext_dev">5</A> for additional information.
+
+<P>
+
+<H2><A NAME="SECTION00035000000000000000">
+2.5 Design principle</A>
+</H2>
+
+<P>
+The only way I found to speed up the execution of Scheme code is to compile
+Scheme expressions to instructions for a virtual machine. The challenge was
+to create a virtual machine which would be really fast at interpreting code.
+I chose a Forth-like engine, because I wrote Forth interpreters before and because
+GCC provides nice features to implement this kind of engine in a very efficient
+way.
+
+<P>
+QScheme is fast because it compiles input to a pseudo code and lets the <I>virtual
+machine</I> execute it. The virtual machine is a stack based engine. It is fast,
+because it's hopefully well designed and because it builds on specific GCC features
+(computed gotos) that allow to create a fast interpreter.
+
+<P>
+One drawback of this design is that the code generated for the <I>virtual
+machine</I> pseudo code is relatively large compared to other pseudo-codes. This
+being a case of trading space for speed I think it's acceptable anyway.
+
+<P>
+
+<H2><A NAME="SECTION00036000000000000000">
+2.6 References</A>
+</H2>
+
+<P>
+The Revised5 Report on the Algorithmic Language Scheme (R5RS)
+document can be found online at: 
+
+<P>
+<TT>http://www-swiss.ai.mit.edu/jaffer/Scheme.html</TT>
+
+<P>
+You may also find many interesting article on Scheme at the Scheme repository: 
+
+<P>
+<TT>http://www.cs.indiana.edu/scheme-repository/</TT>
+
+<P>
+Another interesting resource is Schemers.org which can be found at: 
+
+<P>
+<TT>http://www.schemers.org/</TT>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html189"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html185"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html179"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html187"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html190"
+  HREF="node4.html">3 How it works</A>
+<B> Up:</B> <A NAME="tex2html186"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html180"
+  HREF="node2.html">1 Preamble</A>
+ &nbsp <B>  <A NAME="tex2html188"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

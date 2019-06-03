@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>5 QScheme extensions and deviations </TITLE>
+<META NAME="description" CONTENT="5 QScheme extensions and deviations ">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html236"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html232"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html226"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html234"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html237"
+  HREF="node7.html">6 Expressions</A>
+<B> Up:</B> <A NAME="tex2html233"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html227"
+  HREF="node5.html">4 Ignore this</A>
+ &nbsp <B>  <A NAME="tex2html235"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html238"
+  HREF="node6.html#SECTION00061000000000000000">5.1 Comments</A>
+<LI><A NAME="tex2html239"
+  HREF="node6.html#SECTION00062000000000000000">5.2 Case sensitivity</A>
+<LI><A NAME="tex2html240"
+  HREF="node6.html#SECTION00063000000000000000">5.3 Keywords </A>
+<LI><A NAME="tex2html241"
+  HREF="node6.html#SECTION00064000000000000000">5.4 <TT>lambda</TT> and <TT>define</TT> syntax</A>
+<LI><A NAME="tex2html242"
+  HREF="node6.html#SECTION00065000000000000000">5.5 Top-level <TT>set!</TT></A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00060000000000000000"></A><A NAME="Qscm_ext_dev"></A>
+<BR>
+5 QScheme extensions and deviations 
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+5.1 Comments</A>
+</H2>
+
+<P>
+QScheme accepts the standard '<TT>;</TT>' character as standard comment marker.
+Anything following the ';' character on the line is ignored.
+
+<P>
+QScheme also reconizes '#!' followed by anything except a letter as comment.
+For example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>#!&nbsp;This&nbsp;is&nbsp;a&nbsp;valid&nbsp;comment
+
+<P>
+#!/this&nbsp;also
+
+<P>
+#!This&nbsp;not
+</DD>
+</DL>This extension is used to permit QScheme scripting.
+
+<P>
+
+<H2><A NAME="SECTION00062000000000000000">
+5.2 Case sensitivity</A>
+</H2>
+
+<P>
+QScheme is case sensitive: <TT>define</TT> is not the same as <TT>DEFINE</TT>.
+Generally this should not be a problem. At a certain level, QScheme has to be
+case sensitive - when referencing entities defined in external libraries, for
+instance. It is for this reason that I chose to make QScheme globally case sensitive.
+If this causes too much trouble, contact me. It should be possible to write
+a compatibility mode.
+
+<P>
+
+<H2><A NAME="SECTION00063000000000000000"></A><A NAME="Qscm_keywords"></A>
+<BR>
+5.3 Keywords 
+</H2>
+
+<P>
+QScheme recognizes the following tokens as valid keywords:
+
+<P>
+
+<UL>
+<LI><TT>:keyword</TT> - the prefered QScheme form
+</LI>
+<LI><TT>keyword:</TT> - alternative syntax, you may find in other Scheme implementations.
+</LI>
+<LI><TT>#!keyword</TT> - the DSSL syntax
+</LI>
+</UL>
+These different spellings all represent the <I>same</I> keyword.
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(eq?&nbsp;:ake&nbsp;#!ake)&nbsp;&nbsp;
+<BR>#t
+</DD>
+</DL>By default, keywords are printed out in the first form. You can change this
+with the <TT>keyword-display-type</TT> function. 
+
+<P>
+<TT>(keyword-display-type</TT> <I>n</I><TT>)</TT> -&gt; <I>n</I>
+<BR>
+Change the way keywords are displayed. For example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>&gt;&nbsp;(keyword-display-type&nbsp;0)&nbsp;:ake
+
+<P>
+&gt;&nbsp;:ake
+
+<P>
+&gt;&nbsp;(keyword-display-type&nbsp;1)&nbsp;:ake
+
+<P>
+&gt;&nbsp;#!ake
+
+<P>
+&gt;&nbsp;(keyword-display-type&nbsp;2)&nbsp;:ake
+
+<P>
+&gt;&nbsp;ake:
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION00064000000000000000">
+5.4 <TT>lambda</TT> and <TT>define</TT> syntax</A>
+</H2>
+
+<P>
+QScheme introduce a new form of the <TT>lambda</TT> and <TT>define</TT> syntax:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD><TT>(lambda (</TT><I>formal [</I><TT>:rest</TT> <I>var ] [</I><TT>:local</TT>
+<I>local-vars]</I><TT>)</TT><I>body</I><TT>)</TT> -&gt; <I>&lt;procedure&gt;</I>
+
+<P>
+<TT>(define (</TT><I>func formal [</I><TT>:rest</TT> <I>var
+] [</I><TT>:local</TT> <I>local-vars]</I><TT>)</TT><I>body</I><TT>)</TT>
+-&gt; <TT>#undefined</TT>
+<P>
+
+
+<P>
+</DD>
+</DL>
+<P>
+The <I>formal</I> parameters are just like in standard Scheme. The optional
+part '<TT>:rest</TT> <I>var</I>' can be used to introduce an optional variable
+and the '<TT>:local</TT> <I>local-vars</I>' part is used to create local variables.
+For example: 
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD><TT>(lambda (x y :rest z) ...)</TT> is equivalent to <TT>(lambda
+(x y . z) ...)</TT> 
+<P>
+
+
+<P>
+</DD>
+</DL>
+<P>
+and 
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD><TT>(lambda (x y :rest a b)...)</TT> is equivalent to <TT>(lambda (x y)
+(let ((a) (b)) ...)</TT>
+
+<P>
+</DD>
+</DL>
+<P>
+The <TT>define</TT> special form uses the same conventions, so you should be
+able to say:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define&nbsp;(tst&nbsp;x&nbsp;y&nbsp;:local&nbsp;sum)&nbsp;(set!&nbsp;sum&nbsp;(+&nbsp;x&nbsp;y))&nbsp;sum)
+
+<P>
+(tst&nbsp;10&nbsp;20)
+
+<P>
+=&gt;&nbsp;30
+</DD>
+
+<DT><STRONG>Note:</STRONG></DT>
+<DD>Please don't use this extension if you want your code to run on other
+Scheme implementations.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00065000000000000000"></A><A NAME="Qscm_topl_setq"></A>
+<BR>
+5.5 Top-level <TT>set!</TT>
+</H2>
+
+<P>
+QScheme makes a strong distinction between <TT>define</TT> and <TT>set!</TT>.
+<TT>define</TT> creates a new symbol in the current environment and binds a
+value to it; <TT>set!</TT> never creates any symbol. Setting a value to an undefined
+symbol will cause an error. This distinction is needed especially for the external
+variables. There, you have to use <TT>define</TT> to create a new symbol and
+bind the symbol to the external variable location and <TT>set!</TT> to assign
+a new value to the external variable. Example:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>(define&nbsp;testvar-b&nbsp;(extern-var&nbsp;*lib*&nbsp;&#34;extern-char&#34;&nbsp;&nbsp;&#34;testvar_b&#34;))
+
+<P>
+testvar-b
+
+<P>
+=&gt;&nbsp;10
+
+<P>
+(set!&nbsp;testvar-b&nbsp;20)&nbsp;testvar-b
+
+<P>
+=&gt;&nbsp;20
+</DD>
+</DL>In this case, the <TT>define</TT> variable <TT>testvar-b</TT> is bound to an
+<I>external variable object</I>. References to this variable will return the
+value of the object, not the binding. Set! will modify the value of the <I>external
+variable</I>, not the binding. This behaviour should be compatible with the R5RS
+specs.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html236"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html232"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html226"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html234"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html237"
+  HREF="node7.html">6 Expressions</A>
+<B> Up:</B> <A NAME="tex2html233"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html227"
+  HREF="node5.html">4 Ignore this</A>
+ &nbsp <B>  <A NAME="tex2html235"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+#
+#
+$outfile="sgtk-typep";
+
+while(@ARGV) {
+    $file = shift(@ARGV);
+    open(F, $file) || die "can't open $file";
+    while(<F>) {
+		if (/^#define\s+GTK_IS_(\w+)\(/) {
+			$str = $1;
+			if ($str =~ /INVISIBLE/) { next; }
+			if ($_ =~ /GTK_CHECK_TYPE/) {
+				push(@types, "\L$str\E");
+			}
+		}
+	}
+    close(F);
+}
+
+
+open(F, ">$outfile.c") || die "cannot write $outfile.c";
+for $t (@types) {
+    print F <<EOF;
+SOBJ sgtk_is_$t(SOBJ x) { return(SCM_MKBOOL(SGTK_OBJECTP(x) && GTK_IS_\U$t\E(SGTK_OBJECT(x)))); }
+EOF
+}
+
+open(F, ">$outfile.i") || die "cannot write $outfile.i";
+for $t (@types) {
+	$str = $t;
+	$str =~ s/_/-/g;
+	print F <<EOF;
+	scm_add_cprim("gtk-$str?", 	sgtk_is_$t, 	1);
+EOF
+}
+

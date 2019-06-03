@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>9 Running QScheme</TITLE>
+<META NAME="description" CONTENT="9 Running QScheme">
+<META NAME="keywords" CONTENT="s">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="s.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="s.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html311"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html305"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html313"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node11.html">10 Data types *REVIEW*</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html306"
+  HREF="node9.html">8 Foreign function interface</A>
+ &nbsp <B>  <A NAME="tex2html314"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html317"
+  HREF="node10.html#SECTION000101000000000000000">9.1 Syntax</A>
+<LI><A NAME="tex2html318"
+  HREF="node10.html#SECTION000102000000000000000">9.2 Options</A>
+<LI><A NAME="tex2html319"
+  HREF="node10.html#SECTION000103000000000000000">9.3 Environment</A>
+<LI><A NAME="tex2html320"
+  HREF="node10.html#SECTION000104000000000000000">9.4 Scripting</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000100000000000000000">
+9 Running QScheme</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION000101000000000000000">
+9.1 Syntax</A>
+</H2>
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>qscheme&nbsp;[options]&nbsp;[file]&nbsp;[-]&nbsp;[argument&nbsp;...]
+</DD>
+</DL>
+<P>
+
+<H2><A NAME="SECTION000102000000000000000">
+9.2 Options</A>
+</H2>
+
+<P>
+<DL>
+<DT><STRONG><TT>-hs=</TT><I>N</I>&nbsp;<TT>-heap-size=</TT><I>N</I></STRONG></DT>
+<DD>the heap block size.
+The number of objects that can be stored in a heap block is <I>N</I>*1024,
+and the number of block heaps we can use is only limited by the virtual memory
+of the computer.
+</DD>
+<DT><STRONG><TT>-ds=</TT><I>N</I>&nbsp;<TT>-stack-size=</TT><I>N</I></STRONG></DT>
+<DD>the stack size. The
+number of object references that can be stored on the stack. <I>N</I> is a number
+of kilobytes.
+</DD>
+<DT><STRONG><TT>-ni</TT>&nbsp;<TT>-no-init</TT></STRONG></DT>
+<DD>do not read the initial file.
+</DD>
+<DT><STRONG><TT>-i</TT>&nbsp;<TT>-interractive</TT></STRONG></DT>
+<DD>Force interactive mode. If <TT>file</TT>
+are specified, they are loaded first.
+</DD>
+<DT><STRONG>Note:</STRONG></DT>
+<DD>The heap block size does not seem to have big impact on then performance
+yet. The default value is 32k now which seems to be a good value.
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION000103000000000000000">
+9.3 Environment</A>
+</H2>
+
+<P>
+During the initialization of QScheme, the interpreter tries to load a file named
+<TT>s.scm.</TT> The initialization file will be looked for in the following
+directories:
+
+<P>
+
+<UL>
+<LI>in the current directory
+</LI>
+<LI>in the directories designated by the <TT>QS_LIB</TT> environment variable.
+You can specify as many directories as you want by just delimiting them with
+the '<TT>:</TT>' character. For example:
+</LI>
+</UL>
+
+<DL COMPACT>
+<DT>
+<DD>QS_LIB=/usr/local/share/qscheme:$HOME/qscheme
+
+<P>
+export&nbsp;QS_LIB
+</DD>
+</DL>The search order is as indicated above.
+
+<P>
+
+<H2><A NAME="SECTION000104000000000000000">
+9.4 Scripting</A>
+</H2>
+
+<P>
+You can also use QScheme in a standard Unix script context. For example
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>#!/usr/local/bin/qscheme&nbsp;-ni&nbsp;-ds=128
+
+<P>
+(display&nbsp;&#34;Hello&nbsp;world&#34;)
+
+<P>
+(newline)
+</DD>
+</DL>will produce the expected outpout:
+
+<P>
+
+<DL COMPACT>
+<DT>
+<DD>Hello&nbsp;world
+</DD>
+</DL>Easy, isn't it...
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html311"
+  HREF="s.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html305"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html313"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node11.html">10 Data types *REVIEW*</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="s.html">QScheme Documentation</A>
+<B> Previous:</B> <A NAME="tex2html306"
+  HREF="node9.html">8 Foreign function interface</A>
+ &nbsp <B>  <A NAME="tex2html314"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Daniel Crettol
+2000-06-12
+</ADDRESS>
+</BODY>
+</HTML>
